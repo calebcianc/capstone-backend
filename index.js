@@ -1,5 +1,9 @@
 const express = require("express");
 const app = express();
+// Enable CORS for all routes
+const cors = require("cors");
+app.use(cors());
+const { synthesizeSpeech } = require("./text2speech.js");
 
 // to break the following code into its own controller and route files
 app.post("/synthesize", express.json(), (req, res) => {

@@ -11,9 +11,9 @@ async function synthesizeSpeech(text) {
   const request = {
     input: { text },
     voice: {
-      languageCode: "en-US",
-      name: "en-US-Wavenet-D",
-      ssmlGender: "NEUTRAL",
+      languageCode: "en-UK",
+      name: "en-GB-Standard-B",
+      ssmlGender: "MALE",
     },
     audioConfig: { audioEncoding: "MP3" },
   };
@@ -22,3 +22,5 @@ async function synthesizeSpeech(text) {
   await writeFile("output.mp3", response.audioContent, "binary");
   console.log("Audio content written to file: output.mp3");
 }
+
+module.exports = { synthesizeSpeech };
