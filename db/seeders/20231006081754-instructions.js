@@ -10,7 +10,7 @@ module.exports = {
         timeInterval: 3,
         photoUrl:
           "https://images.services.kitchenstories.io/ulsjibr7QK9Ceud44woUc657cCs=/1080x0/filters:quality(80)/images.kitchenstories.io/recipeStepImages/08_09_TraditionalGarlicAndOliveOilPasta_step01.jpg",
-        receipeId: 1,
+        recipeId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -21,7 +21,7 @@ module.exports = {
         timeInterval: 13,
         photoUrl:
           "https://images.services.kitchenstories.io/srpDhU66ExZ715py93X9HWcsheM=/1080x0/filters:quality(80)/images.kitchenstories.io/recipeStepImages/08_09_TraditionalGarlicAndOliveOilPasta_step02.jpg",
-        receipeId: 1,
+        recipeId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -32,7 +32,7 @@ module.exports = {
         timeInterval: 15,
         photoUrl:
           "https://images.services.kitchenstories.io/QAQzELX2SXfP5M3lRCDLUPHT7l0=/1080x0/filters:quality(80)/images.kitchenstories.io/recipeStepImages/08_09_TraditionalGarlicAndOliveOilPasta_step03.jpg",
-        receipeId: 1,
+        recipeId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -43,7 +43,7 @@ module.exports = {
         timeInterval: 16,
         photoUrl:
           "https://images.services.kitchenstories.io/qmLUvZFRK0lTgyN_3ciu3q7sOeo=/1080x0/filters:quality(80)/images.kitchenstories.io/recipeStepImages/08_09_TraditionalGarlicAndOliveOilPasta_step04.jpg",
-        receipeId: 1,
+        recipeId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
       },

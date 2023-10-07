@@ -2,11 +2,10 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.bulkInsert("users", [
+    await queryInterface.bulkInsert("recipe_folders", [
       {
-        name: "Gordon Ramsay",
-        email: "GordonRamsay@gmail.com",
-        isSubscribed: true,
+        recipeId: 1,
+        folderId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -14,6 +13,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete("users", null, {});
+    await queryInterface.bulkDelete("recipe_folders", null, {});
   },
 };

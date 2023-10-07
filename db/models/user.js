@@ -4,8 +4,9 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
-      this.hasOne(models.receipe);
-      this.hasMany(models.receipe);
+      this.hasOne(models.recipe);
+      this.hasMany(models.recipe);
+      this.hasMany(models.folder);
     }
   }
   User.init(
@@ -21,6 +22,9 @@ module.exports = (sequelize, DataTypes) => {
       },
       email: {
         type: DataTypes.STRING,
+      },
+      isSubscribed: {
+        type: DataTypes.BOOLEAN,
       },
       createdAt: {
         type: DataTypes.DATE,

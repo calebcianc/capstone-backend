@@ -2,21 +2,26 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("users", {
+    await queryInterface.createTable("recipe_categories", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      name: {
-        type: Sequelize.STRING,
+      recipeId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "recipes",
+          key: "id",
+        },
       },
-      email: {
-        type: Sequelize.STRING,
-      },
-      isSubscribed: {
-        type: Sequelize.BOOLEAN,
+      categoryId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "categories",
+          key: "id",
+        },
       },
       createdAt: {
         type: Sequelize.DATE,
@@ -30,6 +35,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("users");
+    await queryInterface.dropTable("recipe_categories");
   },
 };

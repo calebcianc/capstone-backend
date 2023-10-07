@@ -4,7 +4,7 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Instruction extends Model {
     static associate(models) {
-      this.belongsTo(models.receipe);
+      this.belongsTo(models.recipe);
     }
   }
   Instruction.init(
@@ -27,10 +27,10 @@ module.exports = (sequelize, DataTypes) => {
       photoUrl: {
         type: DataTypes.STRING,
       },
-      receipeId: {
+      recipeId: {
         type: DataTypes.INTEGER,
         references: {
-          model: "receipe",
+          model: "recipe",
           key: "id",
         },
         allowNull: false,

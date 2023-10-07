@@ -2,13 +2,13 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.bulkInsert("receipes", [
+    await queryInterface.bulkInsert("recipes", [
       {
         // https://www.kitchenstories.com/en/recipes/traditional-garlic-and-olive-oil-pasta
         totalTime: 15,
         name: "Spaghetti aglio e olio",
-        folderName: null,
         lastCookedDate: null,
+        isPublic: true,
         userId: 1,
         creatorId: 1,
         createdAt: new Date(),
@@ -18,6 +18,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete("receipes", null, {});
+    await queryInterface.bulkDelete("recipes", null, {});
   },
 };
