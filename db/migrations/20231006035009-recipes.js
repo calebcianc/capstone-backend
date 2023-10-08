@@ -2,7 +2,7 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("receipes", {
+    await queryInterface.createTable("recipes", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -15,11 +15,11 @@ module.exports = {
       name: {
         type: Sequelize.STRING,
       },
-      folderName: {
-        type: Sequelize.STRING,
-      },
       lastCookedDate: {
         type: Sequelize.DATE,
+      },
+      isPublic: {
+        type: Sequelize.BOOLEAN,
       },
       userId: {
         type: Sequelize.INTEGER,
@@ -39,6 +39,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("receipes");
+    await queryInterface.dropTable("recipes");
   },
 };
