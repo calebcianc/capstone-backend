@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsToMany(models.recipe, { through: "recipe_folders" });
     }
   }
-  Category.init(
+  Folder.init(
     {
       id: {
         allowNull: false,
@@ -18,6 +18,14 @@ module.exports = (sequelize, DataTypes) => {
       },
       name: {
         type: DataTypes.STRING,
+      },
+      userId: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: "user",
+          key: "id",
+        },
+        allowNull: false,
       },
       createdAt: {
         type: DataTypes.DATE,
@@ -32,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "category",
+      modelName: "folder",
       // underscored: true,
     }
   );

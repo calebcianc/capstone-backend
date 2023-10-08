@@ -5,6 +5,7 @@ module.exports = {
     await queryInterface.bulkInsert("folders", [
       {
         name: "Carbs",
+        userId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
