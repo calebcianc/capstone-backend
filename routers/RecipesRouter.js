@@ -7,6 +7,11 @@ class RecipesRouter {
   routes() {
     const router = this.express.Router();
     router.get("/", this.controller.getAll.bind(this.controller));
+    router.post(
+      "/partialsurprise",
+      this.controller.createRecipePartial.bind(this.controller)
+    );
+
     return router;
   }
 }
