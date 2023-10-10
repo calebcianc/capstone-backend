@@ -2,8 +2,39 @@ const BaseController = require("./BaseController");
 const generateOpenAiRecipe = require("../openAI");
 
 class RecipesController extends BaseController {
-  constructor(model) {
+  constructor(model, instructionModel, ingredientModel) {
     super(model);
+    this.instructionModel = instructionModel;
+    this.ingredientModel = ingredientModel;
+  }
+
+  // get one recipe (for testing)
+  async getOneRecipe(req, res) {
+    try {
+      const { recipeId } = req.params;
+      const recipe = await this.model.findAll({
+        where: { id: recipeId },
+        include: [
+          {
+            model: this.instructionModel,
+          },
+          {
+            model: this.ingredientModel,
+          },
+        ],
+      });
+      if (!recipe) {
+        return res
+          .status(404)
+          .json({ error: true, msg: "Itinerary not found" });
+      }
+      return res.json(recipe);
+    } catch (error) {
+      console.error("Error fetching recipe:", error);
+      return res
+        .status(500)
+        .json({ error: true, msg: "Internal Server Error" });
+    }
   }
 
   async createRecipePartial(req, res) {
