@@ -24,101 +24,99 @@ const messages = (
 
 You will respond STRICTLY in the following format:
 {
-        "title": " ",
-        "servings": ,
+        "name": " ",
+        "totalTime": ,
         "ingredients": [
             {
-                "item": " ",
+                "name": " ",
                 "quantity": ,
-                "unit": " "
+                "unitOfMeasurement": " "
             }
         ],
         "instructions": [
             {
-                "Step": 1,
-                "Description": " ",
-                "Duration in minutes": 10
+                "step": 1,
+                "instruction": " ",
+                "timeInterval": 10
             },
             {
-                "Step": 2,
-                "Description": " ",
-                "Duration in minutes": 2
+                "step": 2,
+                "instruction": " ",
+                "timeInterval": 2
             }
         ]
     }
 Here is an example:
 {
-        "title": "Spaghetti Aglio e Olio",
-        "servings": 4,
+        "name": "Spaghetti Aglio e Olio",
+        "totalTime": 15,
         "ingredients": [
             {
-                "item": "Spaghetti",
+                "name": "Spaghetti",
                 "quantity": 400,
-                "unit": "grams"
+                "unitOfMeasurement": "grams"
             },
             {
-                "item": "Extra virgin olive oil",
+                "name": "Extra virgin olive oil",
                 "quantity": 0.25,
-                "unit": "cup"
+                "unitOfMeasurement": "cup"
             },
             {
-                "item": "Garlic",
+                "name": "Garlic",
                 "quantity": 6,
-                "unit": "cloves",
-                "preparation": "thinly sliced"
+                "unitOfMeasurement": "cloves",
             },
             {
-                "item": "Red pepper flakes",
+                "name": "Red pepper flakes",
                 "quantity": 0.5,
-                "unit": "teaspoon"
+                "unitOfMeasurement": "teaspoon"
             },
             {
-                "item": "Fresh parsley",
+                "name": "Fresh parsley",
                 "quantity": 0.25,
-                "unit": "cup",
-                "preparation": "chopped"
+                "unitOfMeasurement": "cup",                
             },
             {
-                "item": "Salt",
+                "name": "Salt",
                 "quantity": "to taste",
-                "unit": ""
+                "unitOfMeasurement": ""
             },
             {
-                "item": "Black pepper",
+                "name": "Black pepper",
                 "quantity": "to taste",
-                "unit": ""
+                "unitOfMeasurement": ""
             }
         ],
         "instructions": [
             {
-                "Step": 1,
-                "Description": "Bring a large pot of salted water to a boil. Add the spaghetti and cook until al dente.",
-                "Duration in minutes": 10
+                "step": 1,
+                "instruction": "Bring a large pot of salted water to a boil. Add the spaghetti and cook until al dente.",
+                "timeInterval": 10
             },
             {
-                "Step": 2,
-                "Description": "Meanwhile, in a large skillet, heat the olive oil over medium heat. Add the garlic and red pepper flakes, and sauté for about 1-2 minutes, until the garlic is golden but not browned.",
-                "Duration in minutes": 2
+                "step": 2,
+                "instruction": "Meanwhile, in a large skillet, heat the olive oil over medium heat. Add the garlic and red pepper flakes, and sauté for about 1-2 minutes, until the garlic is golden but not browned.",
+                "timeInterval": 2
             },
             {
-                "Step": 3,
-                "Description": "Reserve about 1 cup of the pasta cooking water, then drain the spaghetti.",
-                "Duration in minutes": 2
+                "step": 3,
+                "instruction": "Reserve about 1 cup of the pasta cooking water, then drain the spaghetti.",
+                "timeInterval": 2
             },
             {
-                "Step": 4,
-                "Description": "Add the spaghetti to the skillet with the garlic oil, and toss well to coat, adding a bit of the reserved pasta water if needed to loosen things up.",
-                "Duration in minutes": 5
+                "step": 4,
+                "instruction": "Add the spaghetti to the skillet with the garlic oil, and toss well to coat, adding a bit of the reserved pasta water if needed to loosen things up.",
+                "timeInterval": 5
             },
             {
-                "Step": 5,
-                "Description": "Season with salt and black pepper to taste, and toss with fresh parsley.",
-                "Duration in minutes": 2
+                "step": 5,
+                "instruction": "Season with salt and black pepper to taste, and toss with fresh parsley.",
+                "timeInterval": 2
             },
             {
-                "Step": 6,
-                "Description": "Serve immediately, garnished with additional parsley if desired.",
-                "Duration in minutes": 2
+                "step": 6,
+                "instruction": "Serve immediately, garnished with additional parsley if desired.",
+                "timeInterval": 2
             }
         ]
     }`;
