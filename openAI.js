@@ -121,7 +121,7 @@ Here is an example:
         ]
     }`;
   const generateRecipePrompt =
-    cuisineType === ""
+    cuisineType === "Random"
       ? `Generate a popular random recipe in the JSON format indicated in the system prompt.`
       : `Generate a recipe based on the following parameters: ${cuisineType} cusine for ${mealType} that has ${dietaryRestrictions} dietary restrictions, for ${servings} pax, that can be prepared in ${prepTime}, in the JSON format indicated in the system prompt.`;
 
@@ -147,13 +147,13 @@ async function generateOpenAiRecipe({
   console.log("generateOpenAiRecipe function is running");
   console.log(
     "Prompts: ",
-    JSON.stringify(
+    JSON.stringify({
       mealType,
       cuisineType,
       dietaryRestrictions,
       servings,
-      prepTime
-    )
+      prepTime,
+    })
   );
 
   let counter = 0; // Initialize counter
