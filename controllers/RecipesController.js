@@ -1,4 +1,5 @@
 const BaseController = require("./BaseController");
+const generateOpenAiRecipe = require("../openAI");
 
 class RecipesController extends BaseController {
   constructor(model, instructionModel, ingredientModel, userModel) {

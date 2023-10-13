@@ -1,8 +1,6 @@
 const dotenv = require("dotenv");
 dotenv.config();
 
-console.log(process.env.API_KEY);
-
 const OpenAI = require("openai").default;
 
 const openai = new OpenAI({
@@ -10,44 +8,123 @@ const openai = new OpenAI({
 });
 
 // function to construct the messages key to send to ChatGPT; with prompts being a prop that is passed from the frontend to the fetchChatCompletion function
-const messages = (prompts) => {
-  const userInterests = ["sightseeing", "cultural", "adventure", "nature"]; // to get from database upon user log in (BE) & store as states (FE)
-  const systemPrompt = `You are a world class travel assistant to a user with the following interests: ${userInterests.join(
-    ", "
-  )}. Use your immense knowledge base of every country in the world including \n
-i) what each country is known for, \n
-ii) which times of the year is ideal for tourism, to tailor the perfect itinerary for the user. \n
-Each conversation that you will be having will be for one itinerary and one itinerary will have many activities. \n
+const messages = (
+  mealType,
+  cuisineType,
+  dietaryRestrictions,
+  servings,
+  prepTime
+) => {
+  const userInterests = ["Asian", "Spicy", "Soup-based"];
+  const systemPrompt = `
+    You are a world class chef to a user with the following culinary preferences: 
+    ${userInterests.join(", ")}. 
+    Use your immense knowledge base of every cuisine in the world to generate a recipe in JSON format.
+    ...
 
-The first prompt you receive will provide information such as the start and end dates, as well as the country that the user wants to visit. \n
-You will respond STRICTLY with a raw JSON array, without any enclosing object or keys, representing a list of activities based on i) the time of year inferred from the start and end dates, ii) the country, and iii) the user's interests as indicated above. The array should start and end with square brackets [] and contain objects in the specified format.
- \n
-Each activity-object will be presented in the following object format and keys e.g.,
+You will respond STRICTLY in the following format:
 {
-  "date": "1 November 2023",
-  "name": "Visit Forbidden City",
-  "description": "The Forbidden City in Beijing, China, is a historic palace complex that served as the imperial residence for 24 emperors during the Ming and Qing Dynasties. Spanning over 180 acres, it is a masterpiece of Chinese architecture and is now a UNESCO World Heritage Site, attracting millions of visitors annually.",
-  "type": "cultural",
-  "activity_order": "1"
-  "time_of_day": "afternoon",
-  "suggested_duration": "2 to 3 hours",
-  "location": "Forbidden City, Beijing",
-  "latitude": 39.9165,
-  "longitude": 116.3972,
-}
+        "name": " ",
+        "totalTime": ,
+        "ingredients": [
+            {
+                "name": " ",
+                "quantity": ,
+                "unitOfMeasurement": " "
+            }
+        ],
+        "instructions": [
+            {
+                "step": 1,
+                "instruction": " ",
+                "timeInterval": 10
+            },
+            {
+                "step": 2,
+                "instruction": " ",
+                "timeInterval": 2
+            }
+        ]
+    }
+Here is an example:
+{
+        "name": "Spaghetti Aglio e Olio",
+        "totalTime": 15,
+        "ingredients": [
+            {
+                "name": "Spaghetti",
+                "quantity": 400,
+                "unitOfMeasurement": "grams"
+            },
+            {
+                "name": "Extra virgin olive oil",
+                "quantity": 0.25,
+                "unitOfMeasurement": "cup"
+            },
+            {
+                "name": "Garlic",
+                "quantity": 6,
+                "unitOfMeasurement": "cloves",
+            },
+            {
+                "name": "Red pepper flakes",
+                "quantity": 0.5,
+                "unitOfMeasurement": "teaspoon"
+            },
+            {
+                "name": "Fresh parsley",
+                "quantity": 0.25,
+                "unitOfMeasurement": "cup",                
+            },
+            {
+                "name": "Salt",
+                "quantity": "to taste",
+                "unitOfMeasurement": ""
+            },
+            {
+                "name": "Black pepper",
+                "quantity": "to taste",
+                "unitOfMeasurement": ""
+            }
+        ],
+        "instructions": [
+            {
+                "step": 1,
+                "instruction": "Bring a large pot of salted water to a boil. Add the spaghetti and cook until al dente.",
+                "timeInterval": 10
+            },
+            {
+                "step": 2,
+                "instruction": "Meanwhile, in a large skillet, heat the olive oil over medium heat. Add the garlic and red pepper flakes, and sauté for about 1-2 minutes, until the garlic is golden but not browned.",
+                "timeInterval": 2
+            },
+            {
+                "step": 3,
+                "instruction": "Reserve about 1 cup of the pasta cooking water, then drain the spaghetti.",
+                "timeInterval": 2
+            },
+            {
+                "step": 4,
+                "instruction": "Add the spaghetti to the skillet with the garlic oil, and toss well to coat, adding a bit of the reserved pasta water if needed to loosen things up.",
+                "timeInterval": 5
+            },
+            {
+                "step": 5,
+                "instruction": "Season with salt and black pepper to taste, and toss with fresh parsley.",
+                "timeInterval": 2
+            },
+            {
+                "step": 6,
+                "instruction": "Serve immediately, garnished with additional parsley if desired.",
+                "timeInterval": 2
+            }
+        ]
+    }`;
+  const generateRecipePrompt =
+    cuisineType === "Random"
+      ? `Generate a popular random recipe in the JSON format indicated in the system prompt.`
+      : `Generate a recipe based on the following parameters: ${cuisineType} cusine for ${mealType} that has ${dietaryRestrictions} dietary restrictions, for ${servings} pax, that can be prepared in ${prepTime}, in the JSON format indicated in the system prompt.`;
 
-In generating the list of activities, note and ensure the following:
-- pay attention to the text in the itinerary name as the name contains specific requests such as the city that the user wants to visit; in which case, generate activities largely in and around the specified city as opposed to another city in the country
-- make sure your itinerary covers EVERY date from the start date to the end date inclusive.
-- the first activity of the first day (in the morning) should always be arrival at an airport
-- the last activity of the last day (in the evening) should always be departure from an airport
-- there will be at least 3 activities for every day of the itinerary (one for morning, one for afternoon, one for evening)
-- a rough 30 minutes gap between each activity to account for user travel
-- the activities should be in an order that makes sense e.g., if activities A, B, and C are points on a map with B in the middle, then the recommended order should be A-B-C or C-B-A
-
-Thereafter, the user may send in one or more of the following: i) Add in a new activity, ii) Amend something about an existing activity. \n
-In responding to these requests, be sure to note the information of the activities before and after, and recommend an activity appropriate for the user.`;
-  const generateItineraryPrompt = `Generate a travel itinerary based on itinerary name and description: ${prompts.name} with start date ${prompts.startDate}, end date ${prompts.endDate}, in ${prompts.country}, with a focus on ${prompts.category}. `;
   return [
     {
       role: "system",
@@ -55,14 +132,29 @@ In responding to these requests, be sure to note the information of the activiti
     },
     {
       role: "user",
-      content: `${generateItineraryPrompt}`,
+      content: `${generateRecipePrompt}`,
     },
   ];
 };
 
-async function fetchChatCompletion({ prompts }) {
-  console.log("fetchChatCompletion function is running");
-  console.log("Prompts: ", JSON.stringify(prompts));
+async function generateOpenAiRecipe({
+  mealType,
+  cuisineType,
+  dietaryRestrictions,
+  servings,
+  prepTime,
+}) {
+  console.log("generateOpenAiRecipe function is running");
+  console.log(
+    "Prompts: ",
+    JSON.stringify({
+      mealType,
+      cuisineType,
+      dietaryRestrictions,
+      servings,
+      prepTime,
+    })
+  );
 
   let counter = 0; // Initialize counter
   // Start the count-up timer
@@ -74,7 +166,13 @@ async function fetchChatCompletion({ prompts }) {
   try {
     const chatCompletion = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
-      messages: messages(prompts),
+      messages: messages(
+        mealType,
+        cuisineType,
+        dietaryRestrictions,
+        servings,
+        prepTime
+      ),
     });
 
     clearInterval(timerId); // Stop the timer
@@ -88,4 +186,4 @@ async function fetchChatCompletion({ prompts }) {
   }
 }
 
-module.exports = fetchChatCompletion;
+module.exports = generateOpenAiRecipe;

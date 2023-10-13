@@ -27,8 +27,10 @@ const categoriesRouter = new CategoriesRouter(
   express,
   categoriesController
 ).routes();
+
 const foldersController = new FoldersController(folder);
 const foldersRouter = new FoldersRouter(express, foldersController).routes();
+
 const ingredientsController = new IngredientsController(ingredient);
 const ingredientsRouter = new IngredientsRouter(
   express,
@@ -42,11 +44,13 @@ const recipesController = new RecipesController(
   user
 );
 const recipesRouter = new RecipesRouter(express, recipesController).routes();
+
 const instructionsController = new InstructionsController(instruction);
 const instructionsRouter = new InstructionsRouter(
   express,
   instructionsController
 ).routes();
+
 const usersController = new UsersController(user);
 const usersRouter = new UsersRouter(express, usersController).routes();
 
