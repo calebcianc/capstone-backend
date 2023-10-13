@@ -11,10 +11,7 @@ class RecipesRouter {
       "/:recipeId",
       this.controller.getOneRecipe.bind(this.controller)
     );
-    router.post(
-      "/partialsurprise",
-      this.controller.createRecipePartial.bind(this.controller)
-    );
+    router.post("/new", this.controller.createRecipe.bind(this.controller));
 
     return router;
   }

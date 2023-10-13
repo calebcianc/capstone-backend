@@ -63,18 +63,14 @@ class RecipesController extends BaseController {
     }
   }
 
-  async createRecipePartial(req, res) {
-    const { mealType, cuisineType, dietaryRestrictions, servings, prepTime } =
-      req.body;
+  async createRecipe(req, res) {
+    const { type, input } = req.body;
 
     try {
       // call chatgpt api and assign the array of activities to the activities variable
       const newRecipe = await generateOpenAiRecipe({
-        mealType,
-        cuisineType,
-        dietaryRestrictions,
-        servings,
-        prepTime,
+        type,
+        input,
       });
       if (!newRecipe) {
         return res

@@ -8,13 +8,14 @@ const openai = new OpenAI({
 });
 
 // function to construct the messages key to send to ChatGPT; with prompts being a prop that is passed from the frontend to the fetchChatCompletion function
-const messages = (
-  mealType,
-  cuisineType,
-  dietaryRestrictions,
-  servings,
-  prepTime
-) => {
+const messages = (type, input) => {
+  let mealType, cuisineType, dietaryRestrictions, servings, prepTime, textInput;
+
+  if (typeof input === "object") {
+    ({ mealType, cuisineType, dietaryRestrictions, servings, prepTime } =
+      input);
+  }
+
   const userInterests = ["Asian", "Spicy", "Soup-based"];
   const systemPrompt = `
     You are a world class chef to a user with the following culinary preferences: 
@@ -121,9 +122,13 @@ Here is an example:
         ]
     }`;
   const generateRecipePrompt =
-    cuisineType === "Random"
-      ? `Generate a popular random recipe in the JSON format indicated in the system prompt.`
-      : `Generate a recipe based on the following parameters: ${cuisineType} cusine for ${mealType} that has ${dietaryRestrictions} dietary restrictions, for ${servings} pax, that can be prepared in ${prepTime}, in the JSON format indicated in the system prompt.`;
+    type === "surprise"
+      ? `Generate a random popular recipe in the JSON format indicated in the system prompt.`
+      : type === "suggest"
+      ? `Generate a recipe based on the following parameters: ${cuisineType} cusine for ${mealType} that has ${dietaryRestrictions} dietary restrictions, for ${servings} pax, that can be prepared in ${prepTime}, in the JSON format indicated in the system prompt.`
+      : type === "paste"
+      ? `Convert the following text into a recipe in the JSON format indicated in the system prompt: ${input}`
+      : "";
 
   return [
     {
@@ -137,22 +142,13 @@ Here is an example:
   ];
 };
 
-async function generateOpenAiRecipe({
-  mealType,
-  cuisineType,
-  dietaryRestrictions,
-  servings,
-  prepTime,
-}) {
+async function generateOpenAiRecipe({ type, input }) {
   console.log("generateOpenAiRecipe function is running");
   console.log(
     "Prompts: ",
     JSON.stringify({
-      mealType,
-      cuisineType,
-      dietaryRestrictions,
-      servings,
-      prepTime,
+      type,
+      input,
     })
   );
 
@@ -166,13 +162,7 @@ async function generateOpenAiRecipe({
   try {
     const chatCompletion = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
-      messages: messages(
-        mealType,
-        cuisineType,
-        dietaryRestrictions,
-        servings,
-        prepTime
-      ),
+      messages: messages(type, input),
     });
 
     clearInterval(timerId); // Stop the timer
