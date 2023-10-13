@@ -10,7 +10,7 @@ module.exports = {
         lastCookedDate: null,
         isPublic: true,
         recipeImageUrl:
-          "https://images.services.kitchenstories.io/z3_w8O4CHELKXOsptEkU1XowhBk=/1080x0/filters:quality(85)/images.kitchenstories.io/recipeImages/olive-oil-pasta_Final_4x3.jpg",
+          "https://firebasestorage.googleapis.com/v0/b/cheftalk-404a2.appspot.com/o/UserData%2FGordon%20Ramsay%2Frecipe%2F1%2FrecipeImage%2Folive-oil-pasta_Final_4x3.jpg?alt=media",
         userId: 1,
         creatorId: 1,
         createdAt: new Date(),
