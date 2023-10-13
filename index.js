@@ -34,7 +34,13 @@ const ingredientsRouter = new IngredientsRouter(
   express,
   ingredientsController
 ).routes();
-const recipesController = new RecipesController(recipe);
+
+const recipesController = new RecipesController(
+  recipe,
+  instruction,
+  ingredient,
+  user
+);
 const recipesRouter = new RecipesRouter(express, recipesController).routes();
 const instructionsController = new InstructionsController(instruction);
 const instructionsRouter = new InstructionsRouter(

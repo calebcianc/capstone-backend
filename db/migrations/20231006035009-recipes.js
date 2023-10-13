@@ -21,6 +21,9 @@ module.exports = {
       isPublic: {
         type: Sequelize.BOOLEAN,
       },
+      recipeImageUrl: {
+        type: Sequelize.STRING,
+      },
       userId: {
         type: Sequelize.INTEGER,
       },
