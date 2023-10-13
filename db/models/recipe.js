@@ -29,12 +29,15 @@ module.exports = (sequelize, DataTypes) => {
       },
       lastCookedDate: {
         type: DataTypes.DATE,
+        allowNull: true,
       },
       isPublic: {
         type: DataTypes.BOOLEAN,
+        allowNull: true,
       },
       recipeImageUrl: {
         type: DataTypes.STRING,
+        allowNull: true,
       },
       userId: {
         type: DataTypes.INTEGER,

@@ -20,6 +20,7 @@ module.exports = {
       },
       photoUrl: {
         type: Sequelize.STRING,
+        allowNull: true,
       },
       recipeId: {
         type: Sequelize.INTEGER,

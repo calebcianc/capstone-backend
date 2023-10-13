@@ -17,12 +17,15 @@ module.exports = {
       },
       lastCookedDate: {
         type: Sequelize.DATE,
+        allowNull: true,
       },
       isPublic: {
         type: Sequelize.BOOLEAN,
+        allowNull: true,
       },
       recipeImageUrl: {
         type: Sequelize.STRING,
+        allowNull: true,
       },
       userId: {
         type: Sequelize.INTEGER,
