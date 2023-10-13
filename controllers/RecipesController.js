@@ -1,5 +1,6 @@
 const BaseController = require("./BaseController");
 const generateOpenAiRecipe = require("../openAI");
+const InitializeUnsplash = require("../unsplash");
 
 class RecipesController extends BaseController {
   constructor(model, instructionModel, ingredientModel, userModel) {
@@ -64,96 +65,127 @@ class RecipesController extends BaseController {
   }
 
   async createRecipe(req, res) {
-    const { type, input } = req.body;
+    const { data, type, input, userId } = req.body;
+
+    // if (!data) {
+    //   return res
+    //     .status(400)
+    //     .json({ error: true, msg: "Data is missing in request." });
+    // }
+
+    // const { type, input } = data;
+
+    let transaction;
 
     try {
-      // call chatgpt api and assign the array of activities to the activities variable
+      // call chatgpt api and assign the JSON data to a 'newRecipe' variable
       const newRecipe = await generateOpenAiRecipe({
         type,
         input,
       });
+
+      const parsedNewRecipe = JSON.parse(newRecipe);
+
+      console.log("===> newRecipe", JSON.stringify(parsedNewRecipe));
+
       if (!newRecipe) {
-        return res
-          .status(400)
-          .json({ error: true, msg: "Could not fetch recipe" });
+        throw new Error("Could not fetch recipe");
       }
 
-      /*
-      const transaction = await this.model.sequelize.transaction();
+      // initialise a transaction to ensure that all the data is saved to the database
+      transaction = await this.model.sequelize.transaction();
 
-      try {
-        // having the array of activities from chatGPT, we can create a new itinerary in the itineraries model in our db
-        const newItinerary = await this.model.create({
-          name: name,
-          prompts: prompts,
-          isPublic: isPublic,
-          maxPax: maxPax,
-          genderPreference: genderPreference,
-          userId: userId,
-          activities: activities, // array of objects from ChatGPT
-        });
+      console.log("===> Create recipe instance");
 
-        // Associate the user with the itinerary and set isCreator to true
-        await newItinerary.addUser(userId, {
-          through: { isCreator: true },
-          transaction,
-        });
+      // having the JSON data from chatGPT, we can create a new recipe in the recipe model in our db
+      const newRecipeInstance = await this.model.create({
+        name: parsedNewRecipe.name,
+        totalTime: parsedNewRecipe.totalTime,
+        userId: userId,
+        creatorId: userId,
+      });
 
-        const jsArrayActivities = JSON.parse(activities);
+      console.log(
+        "===> newRecipeInstance: ",
+        JSON.stringify(newRecipeInstance)
+      );
 
-        // use unsplash to get photoUrl and insert into itinerary
-        const SearchPhotos = await InitializeUnsplash();
-        const photoUrl = await SearchPhotos(jsArrayActivities[1].location);
-        console.log("photoUrl", photoUrl);
-        if (!photoUrl) {
-          return res
-            .status(400)
-            .json({ error: true, msg: "Could not fetch activities" });
-        }
-        await newItinerary.update({ photoUrl: photoUrl });
+      console.log("===> Get unsplash photo");
+      // use unsplash to get photoUrl and insert into recipeImageUrl
+      // const SearchPhotos = await InitializeUnsplash();
+      // const photoUrl = await SearchPhotos(newRecipe.name);
+      // console.log("photoUrl", photoUrl);
+      // if (!photoUrl) {
+      //   throw new Error("Could not fetch image");
+      // }
+      // await newRecipeInstance.update({ recipeImageUrl: photoUrl });
 
-        const bulkActivities = jsArrayActivities.map((activity) => ({
-          date: activity.date.split("T")[0],
-          name: activity.name,
-          description: activity.description,
-          type: activity.type,
-          activityOrder: activity.activity_order,
-          timeOfDay: activity.time_of_day,
-          suggestedDuration: activity.suggested_duration,
-          location: activity.location,
-          latitude: activity.latitude,
-          longitude: activity.longitude,
-          itineraryId: newItinerary.id,
-        }));
-        await this.activitiesModel.bulkCreate(bulkActivities, {
-          transaction,
-        });
-        await transaction.commit();
+      // const jsArrayIngredients = JSON.parse(newRecipe.ingredients);
+      // const jsArrayInstructions = JSON.parse(newRecipe.instructions);
 
-        //show remaining itineraries after creation
-        let allItinerary = await this.model.findAll({
-          include: [
-            {
-              model: this.activitiesModel,
-            },
-            {
-              model: this.usersModel,
-              where: { id: userId },
-            },
-          ],
-        });
-        console.log("allItinerary", allItinerary);
-        */
+      console.log(
+        "===> newRecipe.ingredients",
+        JSON.stringify(parsedNewRecipe.ingredients)
+      );
+      console.log("===> Create ingredients instances");
+      const bulkIngredients = parsedNewRecipe.ingredients.map((ingredient) => ({
+        name: ingredient.name,
+        quantity: ingredient.quantity,
+        unitOfMeasurement: ingredient.unitOfMeasurement,
+        recipeId: newRecipeInstance.id,
+      }));
 
-      return res.json(newRecipe);
-    } catch (dbErr) {
-      console.error("Database Error:", dbErr);
+      console.log("===> Bulk create");
+      await this.ingredientModel.bulkCreate(bulkIngredients, {
+        transaction,
+      });
+
+      console.log("===> Create instructions instances");
+      const bulkInstructions = parsedNewRecipe.instructions.map(
+        (instruction) => ({
+          instruction: instruction.instruction,
+          step: instruction.step,
+          timeInterval: instruction.timeInterval,
+          recipeId: newRecipeInstance.id,
+        })
+      );
+
+      console.log("===> Bulk create");
+      await this.instructionModel.bulkCreate(bulkInstructions, {
+        transaction,
+      });
+
+      await transaction.commit();
+
+      //show remaining recipes after creation
+      // let allRecipes = await this.model.findAll({
+      //   include: [
+      //     {
+      //       model: this.instructionModel,
+      //     },
+      //     {
+      //       model: this.ingredientModel,
+      //     },
+      //     {
+      //       model: this.userModel,
+      //       where: { id: input.userId },
+      //     },
+      //   ],
+      // });
+      console.log("===> newRecipeInstance", JSON.stringify(newRecipeInstance));
+      // console.log("allRecipes", JSON.stringify(allRecipes));
+      return res.json(newRecipeInstance);
+    } catch (err) {
       await transaction.rollback();
-      return res.status(400).json({ error: true, msg: dbErr.message });
+
+      const isClientError = [
+        "Could not fetch recipe",
+        "Could not fetch image",
+      ].includes(err.message);
+      const statusCode = isClientError ? 400 : 500;
+
+      return res.status(statusCode).json({ error: true, msg: err.message });
     }
-  }
-  catch(err) {
-    return res.status(400).json({ error: true, msg: err.message });
   }
 }
 

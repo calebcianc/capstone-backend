@@ -7,10 +7,12 @@
     "express": "^4.18.2",
     "helmet": "^7.0.0",
     "morgan": "^1.10.0",
+    "node-fetch": "^3.3.2",
     "openai": "^4.11.1",
     "pg": "^8.11.3",
     "pg-hstore": "^2.3.4",
-    "sequelize": "^6.33.0"
+    "sequelize": "^6.33.0",
+    "unsplash-js": "^7.0.18"
   },
   "devDependencies": {
     "nodemon": "^3.0.1",

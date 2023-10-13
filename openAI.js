@@ -9,7 +9,7 @@ const openai = new OpenAI({
 
 // function to construct the messages key to send to ChatGPT; with prompts being a prop that is passed from the frontend to the fetchChatCompletion function
 const messages = (type, input) => {
-  let mealType, cuisineType, dietaryRestrictions, servings, prepTime, textInput;
+  let mealType, cuisineType, dietaryRestrictions, servings, prepTime;
 
   if (typeof input === "object") {
     ({ mealType, cuisineType, dietaryRestrictions, servings, prepTime } =
@@ -18,109 +18,68 @@ const messages = (type, input) => {
 
   const userInterests = ["Asian", "Spicy", "Soup-based"];
   const systemPrompt = `
-    You are a world class chef to a user with the following culinary preferences: 
+    You are a world-class chef assisting a user with the following culinary preferences: 
     ${userInterests.join(", ")}. 
-    Use your immense knowledge base of every cuisine in the world to generate a recipe in JSON format.
-    ...
+    Use your extensive knowledge of global cuisines to generate a recipe in JSON format. It is imperative that the generated JSON structure is perfect, without any trailing commas or other syntactical errors. 
+    
+    The expected format for your response is as follows:
 
-You will respond STRICTLY in the following format:
 {
-        "name": " ",
-        "totalTime": ,
-        "ingredients": [
-            {
-                "name": " ",
-                "quantity": ,
-                "unitOfMeasurement": " "
-            }
-        ],
-        "instructions": [
-            {
-                "step": 1,
-                "instruction": " ",
-                "timeInterval": 10
-            },
-            {
-                "step": 2,
-                "instruction": " ",
-                "timeInterval": 2
-            }
-        ]
-    }
-Here is an example:
+    "name": "RECIPE_NAME",
+    "totalTime": TIME_IN_MINUTES,
+    "ingredients": [
+        {
+            "name": "INGREDIENT_NAME",
+            "quantity": QUANTITY,
+            "unitOfMeasurement": "UNIT"
+        },
+        ...
+    ],
+    "instructions": [
+        {
+            "step": STEP_NUMBER,
+            "instruction": "INSTRUCTION_TEXT",
+            "timeInterval": TIME_IN_MINUTES
+        },
+        ...
+    ]
+}
+
+For instance:
+
 {
-        "name": "Spaghetti Aglio e Olio",
-        "totalTime": 15,
-        "ingredients": [
-            {
-                "name": "Spaghetti",
-                "quantity": 400,
-                "unitOfMeasurement": "grams"
-            },
-            {
-                "name": "Extra virgin olive oil",
-                "quantity": 0.25,
-                "unitOfMeasurement": "cup"
-            },
-            {
-                "name": "Garlic",
-                "quantity": 6,
-                "unitOfMeasurement": "cloves",
-            },
-            {
-                "name": "Red pepper flakes",
-                "quantity": 0.5,
-                "unitOfMeasurement": "teaspoon"
-            },
-            {
-                "name": "Fresh parsley",
-                "quantity": 0.25,
-                "unitOfMeasurement": "cup",                
-            },
-            {
-                "name": "Salt",
-                "quantity": "to taste",
-                "unitOfMeasurement": ""
-            },
-            {
-                "name": "Black pepper",
-                "quantity": "to taste",
-                "unitOfMeasurement": ""
-            }
-        ],
-        "instructions": [
-            {
-                "step": 1,
-                "instruction": "Bring a large pot of salted water to a boil. Add the spaghetti and cook until al dente.",
-                "timeInterval": 10
-            },
-            {
-                "step": 2,
-                "instruction": "Meanwhile, in a large skillet, heat the olive oil over medium heat. Add the garlic and red pepper flakes, and sauté for about 1-2 minutes, until the garlic is golden but not browned.",
-                "timeInterval": 2
-            },
-            {
-                "step": 3,
-                "instruction": "Reserve about 1 cup of the pasta cooking water, then drain the spaghetti.",
-                "timeInterval": 2
-            },
-            {
-                "step": 4,
-                "instruction": "Add the spaghetti to the skillet with the garlic oil, and toss well to coat, adding a bit of the reserved pasta water if needed to loosen things up.",
-                "timeInterval": 5
-            },
-            {
-                "step": 5,
-                "instruction": "Season with salt and black pepper to taste, and toss with fresh parsley.",
-                "timeInterval": 2
-            },
-            {
-                "step": 6,
-                "instruction": "Serve immediately, garnished with additional parsley if desired.",
-                "timeInterval": 2
-            }
-        ]
-    }`;
+    "name": "Spaghetti Aglio e Olio",
+    "totalTime": 15,
+    "ingredients": [
+        {
+            "name": "Spaghetti",
+            "quantity": 400,
+            "unitOfMeasurement": "grams"
+        },
+        {
+            "name": "Extra virgin olive oil",
+            "quantity": 0.25,
+            "unitOfMeasurement": "cup"
+        }
+        ...
+    ],
+    "instructions": [
+        {
+            "step": 1,
+            "instruction": "Boil salted water in a large pot. Cook the spaghetti until al dente.",
+            "timeInterval": 10
+        },
+        {
+            "step": 2,
+            "instruction": "In a large skillet, heat olive oil over medium. Sauté garlic and red pepper flakes for 1-2 minutes until garlic is golden.",
+            "timeInterval": 2
+        }
+        ...
+    ]
+}
+
+Ensure the generated JSON data strictly follows the format above.`;
+
   const generateRecipePrompt =
     type === "surprise"
       ? `Generate a random popular recipe in the JSON format indicated in the system prompt.`
