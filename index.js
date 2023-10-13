@@ -40,7 +40,8 @@ const ingredientsRouter = new IngredientsRouter(
 const recipesController = new RecipesController(
   recipe,
   instruction,
-  ingredient
+  ingredient,
+  user
 );
 const recipesRouter = new RecipesRouter(express, recipesController).routes();
 

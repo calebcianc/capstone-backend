@@ -2,13 +2,38 @@ const BaseController = require("./BaseController");
 const generateOpenAiRecipe = require("../openAI");
 
 class RecipesController extends BaseController {
-  constructor(model, instructionModel, ingredientModel) {
+  constructor(model, instructionModel, ingredientModel, userModel) {
     super(model);
     this.instructionModel = instructionModel;
     this.ingredientModel = ingredientModel;
+    this.userModel = userModel;
   }
 
-  // get one recipe (for testing)
+  // get all recipe
+  async getAllRecipe(req, res) {
+    try {
+      const recipe = await this.model.findAll({
+        include: [
+          {
+            model: this.userModel,
+          },
+        ],
+      });
+      if (!recipe) {
+        return res
+          .status(404)
+          .json({ error: true, msg: "Recipe List not found" });
+      }
+      return res.json(recipe);
+    } catch (error) {
+      console.error("Error fetching recipe:", error);
+      return res
+        .status(500)
+        .json({ error: true, msg: "Internal Server Error" });
+    }
+  }
+
+  // get one recipe
   async getOneRecipe(req, res) {
     try {
       const { recipeId } = req.params;
@@ -21,12 +46,13 @@ class RecipesController extends BaseController {
           {
             model: this.ingredientModel,
           },
+          {
+            model: this.userModel,
+          },
         ],
       });
       if (!recipe) {
-        return res
-          .status(404)
-          .json({ error: true, msg: "Itinerary not found" });
+        return res.status(404).json({ error: true, msg: "Recipe not found" });
       }
       return res.json(recipe);
     } catch (error) {

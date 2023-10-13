@@ -33,6 +33,9 @@ module.exports = (sequelize, DataTypes) => {
       isPublic: {
         type: DataTypes.BOOLEAN,
       },
+      recipeImageUrl: {
+        type: DataTypes.STRING,
+      },
       userId: {
         type: DataTypes.INTEGER,
         references: {
