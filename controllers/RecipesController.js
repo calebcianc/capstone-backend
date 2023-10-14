@@ -112,16 +112,13 @@ class RecipesController extends BaseController {
 
       console.log("===> Get unsplash photo");
       // use unsplash to get photoUrl and insert into recipeImageUrl
-      // const SearchPhotos = await InitializeUnsplash();
-      // const photoUrl = await SearchPhotos(newRecipe.name);
-      // console.log("photoUrl", photoUrl);
-      // if (!photoUrl) {
-      //   throw new Error("Could not fetch image");
-      // }
-      // await newRecipeInstance.update({ recipeImageUrl: photoUrl });
-
-      // const jsArrayIngredients = JSON.parse(newRecipe.ingredients);
-      // const jsArrayInstructions = JSON.parse(newRecipe.instructions);
+      const SearchPhotos = await InitializeUnsplash();
+      const photoUrl = await SearchPhotos(parsedNewRecipe.name);
+      console.log("photoUrl", photoUrl);
+      if (!photoUrl) {
+        throw new Error("Could not fetch image");
+      }
+      await newRecipeInstance.update({ recipeImageUrl: photoUrl });
 
       console.log(
         "===> newRecipe.ingredients",
@@ -157,21 +154,6 @@ class RecipesController extends BaseController {
 
       await transaction.commit();
 
-      //show remaining recipes after creation
-      // let allRecipes = await this.model.findAll({
-      //   include: [
-      //     {
-      //       model: this.instructionModel,
-      //     },
-      //     {
-      //       model: this.ingredientModel,
-      //     },
-      //     {
-      //       model: this.userModel,
-      //       where: { id: input.userId },
-      //     },
-      //   ],
-      // });
       console.log("===> newRecipeInstance", JSON.stringify(newRecipeInstance));
       // console.log("allRecipes", JSON.stringify(allRecipes));
       return res.json(newRecipeInstance);
