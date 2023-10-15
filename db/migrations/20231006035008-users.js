@@ -15,6 +15,12 @@ module.exports = {
       email: {
         type: Sequelize.STRING,
       },
+      cusinePreferences: {
+        type: Sequelize.STRING,
+      },
+      dietaryRestrictions: {
+        type: Sequelize.STRING,
+      },
       isSubscribed: {
         type: Sequelize.BOOLEAN,
       },
