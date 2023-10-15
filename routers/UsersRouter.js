@@ -7,6 +7,10 @@ class UsersController {
   routes() {
     const router = this.express.Router();
     router.get("/", this.controller.getAll.bind(this.controller));
+    router.get(
+      "/management/:email",
+      this.controller.getLoginCount.bind(this.controller)
+    );
     return router;
   }
 }
