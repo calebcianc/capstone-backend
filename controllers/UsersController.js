@@ -27,6 +27,24 @@ class UsersController extends BaseController {
         return res.status(400).json({ error: true, msg: err });
       });
   }
+
+  // create user with form information
+  async addUser(req, res) {
+    const { name, email, cusinePreferences, dietaryRestrictions } = req.body;
+
+    try {
+      const contract = await this.model.create({
+        name: name,
+        email: email,
+        cusinePreferences: cusinePreferences,
+        dietaryRestrictions: dietaryRestrictions,
+      });
+
+      return res.json("success");
+    } catch (err) {
+      return res.status(400).json({ error: true, msg: err });
+    }
+  }
 }
 
 module.exports = UsersController;
