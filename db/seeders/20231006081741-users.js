@@ -7,6 +7,8 @@ module.exports = {
         name: "Gordon Ramsay",
         email: "GordonRamsay@gmail.com",
         isSubscribed: true,
+        cusinePreferences: "french,mexican",
+        dietaryRestrictions: "keto,paleo",
         createdAt: new Date(),
         updatedAt: new Date(),
       },
