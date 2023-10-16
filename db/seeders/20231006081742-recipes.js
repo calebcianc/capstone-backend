@@ -16,6 +16,19 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        // https://tasty.co/recipe/fajita-parchment-baked-chicken
+        totalTime: 195,
+        name: "Fajita Parchment-Baked Chicken",
+        lastCookedDate: null,
+        isPublic: true,
+        recipeImageUrl:
+          "https://img.buzzfeed.com/buzzfeed-static/static/2023-04/19/15/asset/82c19baee9c9/sub-buzz-1261-1681919507-9.jpg?downsize=700%3A%2A&output-quality=auto&output-format=auto",
+        userId: 1,
+        creatorId: 1,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ]);
   },
 

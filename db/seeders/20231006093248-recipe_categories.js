@@ -9,6 +9,12 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        recipeId: 2,
+        categoryId: 2,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ]);
   },
 
