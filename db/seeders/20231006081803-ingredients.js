@@ -297,6 +297,64 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        // https://www.kitchenstories.com/en/recipes/traditional-garlic-and-olive-oil-pasta
+        // for one serving
+        name: "long pasta (e.g.spaghetti or linguine)",
+        quantity: 125,
+        unitOfMeasurement: "gram",
+        recipeId: 5,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "olive oil (extra virgin)",
+        quantity: 50,
+        unitOfMeasurement: "milliliter",
+        recipeId: 5,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "garlic",
+        quantity: 3,
+        unitOfMeasurement: "piece",
+        recipeId: 5,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "parsley",
+        quantity: 10,
+        unitOfMeasurement: "gram",
+        recipeId: 5,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "Parmesan cheese (grated)",
+        quantity: 25,
+        unitOfMeasurement: "gram",
+        recipeId: 5,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "salt",
+        quantity: null, // as required
+        unitOfMeasurement: null,
+        recipeId: 5,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "pepper",
+        quantity: null, // as required
+        unitOfMeasurement: null,
+        recipeId: 5,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ]);
   },
 

@@ -46,7 +46,7 @@ module.exports = {
         // https://www.kitchenstories.com/en/recipes/creamy-kohlrabi-with-nutmeg
         // private recipe
         totalTime: 30,
-        name: "Creamy kohlrabi with nutmegcrea",
+        name: "Creamy kohlrabi with nutmegcream",
         lastCookedDate: null,
         isPublic: false,
         recipeImageUrl:
@@ -64,7 +64,7 @@ module.exports = {
         lastCookedDate: null,
         isPublic: false,
         recipeImageUrl:
-          "https://firebasestorage.googleapis.com/v0/b/cheftalk-404a2.appspot.com/o/UserData%2F1%2Frecipe%2F1%2FrecipeImage%2Folive-oil-pasta_Final_4x3.jpeg?alt=media&token=3fed701b-3309-4f5b-ae16-61062b785fba",
+          "https://images.services.kitchenstories.io/z3_w8O4CHELKXOsptEkU1XowhBk=/1080x0/filters:quality(85)/images.kitchenstories.io/recipeImages/olive-oil-pasta_Final_4x3.jpg",
         userId: 2,
         creatorId: 1,
         createdAt: new Date(),

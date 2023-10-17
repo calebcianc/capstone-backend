@@ -9,7 +9,7 @@ module.exports = {
         step: 1,
         timeInterval: 3,
         photoUrl:
-          "https://firebasestorage.googleapis.com/v0/b/cheftalk-404a2.appspot.com/o/UserData%2F1%2Frecipe%2F1%2FinstructionImage%2F1%2Fstep1.jpeg?alt=media&token=6e6b69a1-d8fb-42c7-b76d-441ef8d5b617",
+          "https://images.services.kitchenstories.io/d_uvenuXIKu1Kh6sNMBaC2GKyA8=/384x0/filters:quality(80)/images.kitchenstories.io/recipeStepImages/08_09_TraditionalGarlicAndOliveOilPasta_step01.jpg",
         recipeId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -20,7 +20,7 @@ module.exports = {
         step: 2,
         timeInterval: 13,
         photoUrl:
-          "https://firebasestorage.googleapis.com/v0/b/cheftalk-404a2.appspot.com/o/UserData%2F1%2Frecipe%2F1%2FinstructionImage%2F2%2Fstep2.jpeg?alt=media&token=b7769109-ce18-4e8f-bbe0-18b79a80397f",
+          "https://images.services.kitchenstories.io/iiZZA9XfLG7iMNMjzoQj2cRJSpA=/384x0/filters:quality(80)/images.kitchenstories.io/recipeStepImages/08_09_TraditionalGarlicAndOliveOilPasta_step02.jpg",
         recipeId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -31,7 +31,7 @@ module.exports = {
         step: 3,
         timeInterval: 15,
         photoUrl:
-          "https://firebasestorage.googleapis.com/v0/b/cheftalk-404a2.appspot.com/o/UserData%2F1%2Frecipe%2F1%2FinstructionImage%2F3%2Fstep3.jpeg?alt=media&token=93364e68-705c-4e00-a099-a82e62500c3d",
+          "https://images.services.kitchenstories.io/FDykg8pI60EI6TvK71YerLO6lYE=/384x0/filters:quality(80)/images.kitchenstories.io/recipeStepImages/08_09_TraditionalGarlicAndOliveOilPasta_step03.jpg",
         recipeId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -42,7 +42,7 @@ module.exports = {
         step: 4,
         timeInterval: 16,
         photoUrl:
-          "https://firebasestorage.googleapis.com/v0/b/cheftalk-404a2.appspot.com/o/UserData%2F1%2Frecipe%2F1%2FinstructionImage%2F4%2Fstep4.jpeg?alt=media&token=951b2ff6-a060-49d3-b79d-2950aacbec87",
+          "https://images.services.kitchenstories.io/hVuRDwiLNQo0Xq-93IyilpBNyI4=/384x0/filters:quality(80)/images.kitchenstories.io/recipeStepImages/08_09_TraditionalGarlicAndOliveOilPasta_step04.jpg",
         recipeId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -202,6 +202,50 @@ module.exports = {
         photoUrl:
           "https://images.services.kitchenstories.io/EmYqLss5oC9A9DQSJEd0RA7O2_g=/750x0/filters:quality(80)/images.kitchenstories.io/wagtailOriginalImages/R2961-step-photo-_2.jpg",
         recipeId: 4,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        // https://www.kitchenstories.com/en/recipes/traditional-garlic-and-olive-oil-pasta
+        instruction: "Finely chop parsley. Cut garlic into thin slices.",
+        step: 1,
+        timeInterval: 3,
+        photoUrl:
+          "https://images.services.kitchenstories.io/d_uvenuXIKu1Kh6sNMBaC2GKyA8=/384x0/filters:quality(80)/images.kitchenstories.io/recipeStepImages/08_09_TraditionalGarlicAndOliveOilPasta_step01.jpg",
+        recipeId: 5,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        instruction:
+          "Cook pasta in plenty of salted boiling water, according to package instructions, for approx. 8 – 10 min. until al dente. Drain, save some of the pasta water and set aside.",
+        step: 2,
+        timeInterval: 13,
+        photoUrl:
+          "https://images.services.kitchenstories.io/iiZZA9XfLG7iMNMjzoQj2cRJSpA=/384x0/filters:quality(80)/images.kitchenstories.io/recipeStepImages/08_09_TraditionalGarlicAndOliveOilPasta_step02.jpg",
+        recipeId: 5,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        instruction:
+          "Heat up olive oil in a frying pan. Sauté garlic for approx. 1 – 2 min. Pour in pasta water.",
+        step: 3,
+        timeInterval: 15,
+        photoUrl:
+          "https://images.services.kitchenstories.io/FDykg8pI60EI6TvK71YerLO6lYE=/384x0/filters:quality(80)/images.kitchenstories.io/recipeStepImages/08_09_TraditionalGarlicAndOliveOilPasta_step03.jpg",
+        recipeId: 5,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        instruction:
+          "Add cooked pasta to the pan and toss in garlic oil. Fold in chopped parsley and season with salt and pepper. Serve sprinkled with freshly grated Parmesan cheese to taste.",
+        step: 4,
+        timeInterval: 16,
+        photoUrl:
+          "https://images.services.kitchenstories.io/hVuRDwiLNQo0Xq-93IyilpBNyI4=/384x0/filters:quality(80)/images.kitchenstories.io/recipeStepImages/08_09_TraditionalGarlicAndOliveOilPasta_step04.jpg",
+        recipeId: 5,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
