@@ -13,6 +13,11 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        name: "Japanese",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ]);
   },
 
