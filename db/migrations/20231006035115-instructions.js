@@ -10,7 +10,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       instruction: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
       },
       step: {
         type: Sequelize.INTEGER,
@@ -19,7 +19,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       photoUrl: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
         allowNull: true,
       },
       recipeId: {
