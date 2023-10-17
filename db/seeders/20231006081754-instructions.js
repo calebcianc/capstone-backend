@@ -47,6 +47,84 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        // https://tasty.co/recipe/fajita-parchment-baked-chicken
+        instruction: "Preheat oven to 400°F (200°C).",
+        step: 1,
+        timeInterval: null,
+        photoUrl: null,
+        recipeId: 2,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        instruction: "Fold the parchment paper in half, then open up.",
+        step: 2,
+        timeInterval: null,
+        photoUrl: null,
+        recipeId: 2,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        instruction:
+          "Thinly slice the peppers and onion and lay them on one half of the parchment paper.",
+        step: 3,
+        timeInterval: null,
+        photoUrl: null,
+        recipeId: 2,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        instruction: "Drizzle on oil and sprinkle on salt & pepper.",
+        step: 4,
+        timeInterval: null,
+        photoUrl: null,
+        recipeId: 2,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        instruction:
+          "Lay the chicken on the peppers. Season with taco seasoning, salt and pepper, and spoon on salsa. Top with cheese.",
+        step: 5,
+        timeInterval: null,
+        photoUrl: null,
+        recipeId: 2,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        instruction:
+          "Fold the parchment paper over the chicken, and cinch the paper together by folding it over itself along the edges.",
+        step: 6,
+        timeInterval: null,
+        photoUrl: null,
+        recipeId: 2,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        instruction:
+          "Bake for 25-30 minutes or until internal temperature of chicken reaches 165˚F (75˚C).",
+        step: 7,
+        timeInterval: 25,
+        photoUrl: null,
+        recipeId: 2,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        instruction: "fajita parchment baked chicken is ready!",
+        step: 8,
+        timeInterval: 25,
+        photoUrl:
+          "https://img.buzzfeed.com/buzzfeed-static/static/2023-04/19/15/asset/82c19baee9c9/sub-buzz-1261-1681919507-9.jpg?downsize=700%3A%2A&output-quality=auto&output-format=auto",
+        recipeId: 2,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ]);
   },
 
