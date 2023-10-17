@@ -9,7 +9,7 @@ module.exports = {
         step: 1,
         timeInterval: 3,
         photoUrl:
-          "https://firebasestorage.googleapis.com/v0/b/cheftalk-404a2.appspot.com/o/UserData%2FGordon%20Ramsay%2Frecipe%2F1%2FinstructionImage%2F1%2F08_09_TraditionalGarlicAndOliveOilPasta_step01.jpg?alt=media",
+          "https://firebasestorage.googleapis.com/v0/b/cheftalk-404a2.appspot.com/o/UserData%2F1%2Frecipe%2F1%2FinstructionImage%2F1%2Fstep1.jpeg?alt=media&token=6e6b69a1-d8fb-42c7-b76d-441ef8d5b617",
         recipeId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -20,7 +20,7 @@ module.exports = {
         step: 2,
         timeInterval: 13,
         photoUrl:
-          "https://firebasestorage.googleapis.com/v0/b/cheftalk-404a2.appspot.com/o/UserData%2FGordon%20Ramsay%2Frecipe%2F1%2FinstructionImage%2F2%2F08_09_TraditionalGarlicAndOliveOilPasta_step02.jpg?alt=media",
+          "https://firebasestorage.googleapis.com/v0/b/cheftalk-404a2.appspot.com/o/UserData%2F1%2Frecipe%2F1%2FinstructionImage%2F2%2Fstep2.jpeg?alt=media&token=b7769109-ce18-4e8f-bbe0-18b79a80397f",
         recipeId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -31,7 +31,7 @@ module.exports = {
         step: 3,
         timeInterval: 15,
         photoUrl:
-          "https://firebasestorage.googleapis.com/v0/b/cheftalk-404a2.appspot.com/o/UserData%2FGordon%20Ramsay%2Frecipe%2F1%2FinstructionImage%2F3%2F08_09_TraditionalGarlicAndOliveOilPasta_step03.jpg?alt=media",
+          "https://firebasestorage.googleapis.com/v0/b/cheftalk-404a2.appspot.com/o/UserData%2F1%2Frecipe%2F1%2FinstructionImage%2F3%2Fstep3.jpeg?alt=media&token=93364e68-705c-4e00-a099-a82e62500c3d",
         recipeId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -42,7 +42,7 @@ module.exports = {
         step: 4,
         timeInterval: 16,
         photoUrl:
-          "https://firebasestorage.googleapis.com/v0/b/cheftalk-404a2.appspot.com/o/UserData%2FGordon%20Ramsay%2Frecipe%2F1%2FinstructionImage%2F4%2F08_09_TraditionalGarlicAndOliveOilPasta_step04.jpg?alt=media",
+          "https://firebasestorage.googleapis.com/v0/b/cheftalk-404a2.appspot.com/o/UserData%2F1%2Frecipe%2F1%2FinstructionImage%2F4%2Fstep4.jpeg?alt=media&token=951b2ff6-a060-49d3-b79d-2950aacbec87",
         recipeId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),

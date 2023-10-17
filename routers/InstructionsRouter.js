@@ -8,7 +8,7 @@ class InstructionsRouter {
     const router = this.express.Router();
     router.get("/", this.controller.getAll.bind(this.controller));
     router.put(
-      "/saveImageUrl",
+      "/saveImageUrl/:recipeId/:step",
       this.controller.updatePhoto.bind(this.controller)
     );
     return router;
