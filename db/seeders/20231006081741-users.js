@@ -5,7 +5,7 @@ module.exports = {
     await queryInterface.bulkInsert("users", [
       {
         name: "Gordon Ramsay",
-        email: "GordonRamsay@gmail.com",
+        email: "gordon_ramsay@gmail.com",
         isSubscribed: true,
         cusinePreferences: "french,mexican",
         dietaryRestrictions: "keto,paleo",
