@@ -13,6 +13,7 @@ class UsersController extends BaseController {
 
     try {
       const firstTimeLoginStatus = await this.model.findOne({
+        attributes: ["id"],
         where: { email: email },
       });
 
@@ -39,6 +40,21 @@ class UsersController extends BaseController {
       return res.json("success");
     } catch (err) {
       return res.status(400).json({ error: true, msg: err });
+    }
+  }
+
+  // get user profile
+  async getUserProfile(req, res) {
+    const { email } = req.params;
+
+    try {
+      const userProfile = await this.model.findOne({
+        where: { email: email },
+      });
+
+      return res.json(userProfile);
+    } catch (err) {
+      return res.status(400).json({ error: true, msg: err.message });
     }
   }
 }
