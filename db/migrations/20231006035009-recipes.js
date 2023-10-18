@@ -24,7 +24,7 @@ module.exports = {
         allowNull: true,
       },
       recipeImageUrl: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
         allowNull: true,
       },
       userId: {

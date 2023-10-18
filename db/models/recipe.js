@@ -36,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
       },
       recipeImageUrl: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: true,
       },
       userId: {

@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
       },
       instruction: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
       },
       step: {
         type: DataTypes.INTEGER,
@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
       },
       photoUrl: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: true,
       },
       recipeId: {

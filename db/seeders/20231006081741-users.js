@@ -12,6 +12,15 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        name: "Jane Doe",
+        email: "jane.doe@gmail.com",
+        isSubscribed: true,
+        cusinePreferences: "japanese",
+        dietaryRestrictions: null,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ]);
   },
 
