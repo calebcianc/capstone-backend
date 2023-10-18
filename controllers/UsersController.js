@@ -7,25 +7,21 @@ class UsersController extends BaseController {
     super(model);
   }
 
-  // get user's login count
-  async getLoginCount(req, res) {
+  // get user fist time login in status
+  async getFirstTimeLoginStatus(req, res) {
     const { email } = req.params;
 
-    var options = {
-      method: "GET",
-      url: "https://dev-ou073hqmuqdme5yd.us.auth0.com/api/v2/users",
-      params: { q: `email:${email}`, search_engine: "v3" },
-      headers: { Authorization: `Bearer ${process.env.MANAGEMENT_API_KEY}` },
-    };
-
-    axios
-      .request(options)
-      .then(function (response) {
-        return res.json(response.data);
-      })
-      .catch(function (error) {
-        return res.status(400).json({ error: true, msg: err });
+    try {
+      const firstTimeLoginStatus = await this.model.findOne({
+        where: { email: email },
       });
+
+      let message = false;
+      if (firstTimeLoginStatus === null) message = true;
+      return res.json(message);
+    } catch (err) {
+      return res.status(400).json({ error: true, msg: err.message });
+    }
   }
 
   // create user with form information
