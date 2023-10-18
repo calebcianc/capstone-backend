@@ -11,6 +11,10 @@ class UsersController {
       "/management/:email",
       this.controller.getLoginCount.bind(this.controller)
     );
+    router.get(
+      "/:email",
+      this.controller.getFirstTimeLoginStatus.bind(this.controller)
+    );
     router.post("/", this.controller.addUser.bind(this.controller));
     return router;
   }

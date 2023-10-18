@@ -7,6 +7,23 @@ class UsersController extends BaseController {
     super(model);
   }
 
+  // get user fist time login in status
+  async getFirstTimeLoginStatus(req, res) {
+    const { email } = req.params;
+
+    try {
+      const firstTimeLoginStatus = await this.model.findOne({
+        where: { email: email },
+      });
+
+      let message = false;
+      if (firstTimeLoginStatus === null) message = true;
+      return res.json(message);
+    } catch (err) {
+      return res.status(400).json({ error: true, msg: err.message });
+    }
+  }
+
   // get user's login count
   async getLoginCount(req, res) {
     const { email } = req.params;
@@ -23,7 +40,7 @@ class UsersController extends BaseController {
       .then(function (response) {
         return res.json(response.data);
       })
-      .catch(function (error) {
+      .catch(function (err) {
         return res.status(400).json({ error: true, msg: err });
       });
   }
