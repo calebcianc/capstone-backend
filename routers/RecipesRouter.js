@@ -12,6 +12,10 @@ class RecipesRouter {
       this.controller.getOneRecipe.bind(this.controller)
     );
     router.post("/new", this.controller.createRecipe.bind(this.controller));
+    router.post(
+      "/addRecipe",
+      this.controller.addRecipeToDatabase.bind(this.controller)
+    );
 
     return router;
   }
