@@ -28,7 +28,7 @@ const categoriesRouter = new CategoriesRouter(
   categoriesController
 ).routes();
 
-const foldersController = new FoldersController(folder, recipe);
+const foldersController = new FoldersController(folder, recipe, user);
 const foldersRouter = new FoldersRouter(express, foldersController).routes();
 
 const ingredientsController = new IngredientsController(ingredient);
