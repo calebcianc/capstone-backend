@@ -5,7 +5,7 @@ class InstructionsController extends BaseController {
     super(model);
   }
 
-  // update photo
+  // update instruction step photo
   async updatePhoto(req, res) {
     try {
       let photoUrlToAdd = req.body;
