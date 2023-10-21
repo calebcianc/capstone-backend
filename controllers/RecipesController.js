@@ -65,7 +65,7 @@ class RecipesController extends BaseController {
   }
 
   async createRecipe(req, res) {
-    const { data, type, input, userId } = req.body;
+    const { data, type, input, userId, isPublic } = req.body;
 
     // if (!data) {
     //   return res
@@ -103,6 +103,7 @@ class RecipesController extends BaseController {
         totalTime: parsedNewRecipe.totalTime,
         userId: userId,
         creatorId: userId,
+        isPublic: isPublic ? isPublic : false,
       });
 
       console.log(
@@ -156,6 +157,74 @@ class RecipesController extends BaseController {
 
       console.log("===> newRecipeInstance", JSON.stringify(newRecipeInstance));
       // console.log("allRecipes", JSON.stringify(allRecipes));
+      return res.json(newRecipeInstance);
+    } catch (err) {
+      await transaction.rollback();
+
+      const isClientError = [
+        "Could not fetch recipe",
+        "Could not fetch image",
+      ].includes(err.message);
+      const statusCode = isClientError ? 400 : 500;
+
+      return res.status(statusCode).json({ error: true, msg: err.message });
+    }
+  }
+
+  async addRecipeToDatabase(req, res) {
+    // const { data } = req.body;
+
+    const { recipe, userId } = req.body;
+    // const parsedRecipe = JSON.parse(recipe);
+
+    let transaction;
+
+    try {
+      // initialise a transaction to ensure that all the data is saved to the database
+      transaction = await this.model.sequelize.transaction();
+
+      console.log("===> Create recipe instance");
+      const newRecipeInstance = await this.model.create({
+        name: recipe.name,
+        totalTime: recipe.prepTime,
+        isPublic: recipe.isPublic,
+        userId: userId,
+        creatorId: userId,
+      });
+
+      console.log("===> Create ingredients instances");
+
+      const bulkIngredients = recipe.ingredients.map((ingredient) => ({
+        name: ingredient.name,
+        quantity: ingredient.quantity,
+        unitOfMeasurement: ingredient.unitOfMeasurement,
+        recipeId: newRecipeInstance.id,
+      }));
+
+      console.log("===> Bulk create ingredients");
+      await this.ingredientModel.bulkCreate(bulkIngredients, {
+        transaction,
+      });
+
+      console.log("===> Create instructions instances");
+      const bulkInstructions = recipe.instructions.map(
+        (instruction, index) => ({
+          instruction: instruction.instruction,
+          step: index + 1,
+          timeInterval: instruction.timeInterval,
+          recipeId: newRecipeInstance.id,
+        })
+      );
+
+      console.log("===> Bulk create instructions");
+      await this.instructionModel.bulkCreate(bulkInstructions, {
+        transaction,
+      });
+
+      await transaction.commit();
+
+      console.log("===> newRecipeInstance", JSON.stringify(newRecipeInstance));
+
       return res.json(newRecipeInstance);
     } catch (err) {
       await transaction.rollback();
