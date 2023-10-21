@@ -9,6 +9,12 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        name: "Faves",
+        userId: 1,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ]);
   },
 
