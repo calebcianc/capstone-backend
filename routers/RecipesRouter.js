@@ -17,6 +17,11 @@ class RecipesRouter {
       this.controller.addRecipeToDatabase.bind(this.controller)
     );
 
+    router.put(
+      "/saveImageUrl/:recipeId",
+      this.controller.updatePhoto.bind(this.controller)
+    );
+
     return router;
   }
 }

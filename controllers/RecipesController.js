@@ -1,6 +1,11 @@
 const BaseController = require("./BaseController");
 const generateOpenAiRecipe = require("../openAI");
 const InitializeUnsplash = require("../unsplash");
+const firebaseStorage = require("firebase/storage");
+const storage = require("../firebase").storage;
+const STORAGE_PROFILE_FOLDER_NAME = "UserData";
+
+const { ref: storageRef, uploadBytes, getDownloadURL } = firebaseStorage;
 
 class RecipesController extends BaseController {
   constructor(model, instructionModel, ingredientModel, userModel) {
@@ -221,6 +226,33 @@ class RecipesController extends BaseController {
         transaction,
       });
 
+      console.log("===> Upload instruction images to Firebase");
+      // New code: Upload images to Firebase and update instruction photo URLs
+      // for (let i = 0; i < recipe.instructions.length; i++) {
+      //   const instruction = recipe.instructions[i];
+      //   if (instruction.image) {
+      //     // Assuming image is a Buffer or Blob or a File object
+      //     const filePath = `${STORAGE_PROFILE_FOLDER_NAME}/${userId}/recipe/${
+      //       newRecipeInstance.id
+      //     }/instructionImage/${i + 1}/${instruction.image.name}`;
+      //     const fileRef = storageRef(storage, filePath);
+      //     const snapshot = await uploadBytes(fileRef, instruction.image);
+      //     const instructionPhotoUrl = await getDownloadURL(snapshot.ref);
+
+      //     // Update the photoUrl of the instruction in the database
+      //     await this.instructionModel.update(
+      //       { photoUrl: instructionPhotoUrl },
+      //       {
+      //         where: {
+      //           recipeId: newRecipeInstance.id,
+      //           step: i + 1,
+      //         },
+      //         transaction,
+      //       }
+      //     );
+      //   }
+      // }
+
       await transaction.commit();
 
       console.log("===> newRecipeInstance", JSON.stringify(newRecipeInstance));
@@ -236,6 +268,25 @@ class RecipesController extends BaseController {
       const statusCode = isClientError ? 400 : 500;
 
       return res.status(statusCode).json({ error: true, msg: err.message });
+    }
+  }
+
+  // update recipe photo
+  async updatePhoto(req, res) {
+    try {
+      let photoUrlToAdd = req.body;
+      const { recipeId } = req.params;
+
+      const recipeToEdit = await this.model.findOne({
+        where: { id: recipeId },
+      });
+      if (!recipeToEdit) {
+        return res.status(404).json({ error: true, msg: "recipe not found" });
+      }
+      await recipeToEdit.update(photoUrlToAdd);
+      return res.json(recipeToEdit);
+    } catch (err) {
+      return res.status(400).json({ error: true, msg: err.message });
     }
   }
 }
