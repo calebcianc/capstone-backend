@@ -6,7 +6,7 @@ class FoldersRouter {
 
   routes() {
     const router = this.express.Router();
-    router.get("/", this.controller.getAll.bind(this.controller));
+    router.get("/", this.controller.getFolderRecipe.bind(this.controller));
     return router;
   }
 }
