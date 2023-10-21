@@ -9,11 +9,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      totalTime: {
-        type: Sequelize.INTEGER,
-      },
       name: {
         type: Sequelize.STRING,
+      },
+      totalTime: {
+        type: Sequelize.INTEGER,
       },
       lastCookedDate: {
         type: Sequelize.DATE,
@@ -21,6 +21,14 @@ module.exports = {
       },
       isPublic: {
         type: Sequelize.BOOLEAN,
+        allowNull: true,
+      },
+      cuisine: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      dietaryRestrictions: {
+        type: Sequelize.STRING,
         allowNull: true,
       },
       recipeImageUrl: {
