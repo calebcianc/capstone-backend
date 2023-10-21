@@ -8,7 +8,7 @@ const openai = new OpenAI({
 });
 
 // function to construct the messages key to send to ChatGPT; with prompts being a prop that is passed from the frontend to the fetchChatCompletion function
-const messages = (type, input) => {
+const messages = (type, input, cuisinePreferences, userDietaryRestrictions) => {
   let mealType, cuisineType, dietaryRestrictions, servings, prepTime;
 
   if (typeof input === "object") {
@@ -16,10 +16,9 @@ const messages = (type, input) => {
       input);
   }
 
-  const userInterests = ["Asian", "Spicy", "Soup-based"];
   const systemPrompt = `
     You are a world-class chef assisting a user with the following culinary preferences: 
-    ${userInterests.join(", ")}. 
+    ${cuisinePreferences} and dietary restrictions: ${userDietaryRestrictions}.
     Use your extensive knowledge of global cuisines to generate a recipe in JSON format. It is imperative that the generated JSON structure is perfect, without any trailing commas or other syntactical errors. 
     
     The expected format for your response is as follows:
@@ -27,6 +26,8 @@ const messages = (type, input) => {
 {
     "name": "RECIPE_NAME",
     "totalTime": TIME_IN_MINUTES,
+    "cuisine": "CUISINE_TYPE",
+    "dietaryRestrictions": "DIETARY_RESTRICTIONS",
     "ingredients": [
         {
             "name": "INGREDIENT_NAME",
@@ -50,6 +51,8 @@ For instance:
 {
     "name": "Spaghetti Aglio e Olio",
     "totalTime": 15,
+    "cuisine": "Italian",
+    "dietaryRestrictions": "Vegetarian",
     "ingredients": [
         {
             "name": "Spaghetti",
@@ -82,7 +85,7 @@ Ensure the generated JSON data strictly follows the format above.`;
 
   const generateRecipePrompt =
     type === "surprise"
-      ? `Generate a random popular recipe in the JSON format indicated in the system prompt.`
+      ? `Generate a random popular recipe in the JSON format indicated in the system prompt taking into account user's culinary preferences and dietary restrictions.`
       : type === "suggest"
       ? `Generate a recipe based on the following parameters: ${cuisineType} cusine for ${mealType} that has ${dietaryRestrictions} dietary restrictions, for ${servings} pax, that can be prepared in ${prepTime}, in the JSON format indicated in the system prompt.`
       : type === "paste"
@@ -101,13 +104,20 @@ Ensure the generated JSON data strictly follows the format above.`;
   ];
 };
 
-async function generateOpenAiRecipe({ type, input }) {
+async function generateOpenAiRecipe({
+  type,
+  input,
+  cuisinePreferences,
+  userDietaryRestrictions,
+}) {
   console.log("generateOpenAiRecipe function is running");
   console.log(
     "Prompts: ",
     JSON.stringify({
       type,
       input,
+      cuisinePreferences,
+      userDietaryRestrictions,
     })
   );
 
@@ -121,7 +131,12 @@ async function generateOpenAiRecipe({ type, input }) {
   try {
     const chatCompletion = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
-      messages: messages(type, input),
+      messages: messages(
+        type,
+        input,
+        cuisinePreferences,
+        userDietaryRestrictions
+      ),
     });
 
     clearInterval(timerId); // Stop the timer
