@@ -70,15 +70,14 @@ class RecipesController extends BaseController {
   }
 
   async createRecipe(req, res) {
-    const { data, type, input, userId, isPublic } = req.body;
-
-    // if (!data) {
-    //   return res
-    //     .status(400)
-    //     .json({ error: true, msg: "Data is missing in request." });
-    // }
-
-    // const { type, input } = data;
+    const {
+      type,
+      input,
+      userId,
+      isPublic,
+      cuisinePreferences,
+      userDietaryRestrictions,
+    } = req.body;
 
     let transaction;
 
@@ -87,6 +86,8 @@ class RecipesController extends BaseController {
       const newRecipe = await generateOpenAiRecipe({
         type,
         input,
+        cuisinePreferences,
+        userDietaryRestrictions,
       });
 
       const parsedNewRecipe = JSON.parse(newRecipe);
@@ -106,9 +107,11 @@ class RecipesController extends BaseController {
       const newRecipeInstance = await this.model.create({
         name: parsedNewRecipe.name,
         totalTime: parsedNewRecipe.totalTime,
+        isPublic: isPublic ? isPublic : false,
+        cuisine: parsedNewRecipe.cuisine,
+        dietaryRestrictions: parsedNewRecipe.dietaryRestrictions,
         userId: userId,
         creatorId: userId,
-        isPublic: isPublic ? isPublic : false,
       });
 
       console.log(
