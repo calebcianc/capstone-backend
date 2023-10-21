@@ -6,7 +6,10 @@ class FoldersRouter {
 
   routes() {
     const router = this.express.Router();
-    router.get("/", this.controller.getAll.bind(this.controller));
+    router.get(
+      "/:email",
+      this.controller.getUserFolderRecipes.bind(this.controller)
+    );
     return router;
   }
 }

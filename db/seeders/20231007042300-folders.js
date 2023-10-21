@@ -4,7 +4,13 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.bulkInsert("folders", [
       {
-        name: "Carbs",
+        name: "Guilty Pleasure",
+        userId: 1,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "Faves",
         userId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),

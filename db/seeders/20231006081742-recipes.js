@@ -32,7 +32,7 @@ module.exports = {
       {
         // https://www.kitchenstories.com/en/recipes/eggplant-unagi-japanese-style-glazed-eggplant
         totalTime: 30,
-        name: "Eggplant Unagi ",
+        name: "Eggplant Unagi",
         lastCookedDate: null,
         isPublic: true,
         recipeImageUrl:
