@@ -15,7 +15,7 @@ module.exports = {
       email: {
         type: Sequelize.STRING,
       },
-      cusinePreferences: {
+      cuisinePreferences: {
         type: Sequelize.STRING,
       },
       dietaryRestrictions: {

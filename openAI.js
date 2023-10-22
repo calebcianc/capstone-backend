@@ -87,7 +87,7 @@ Ensure the generated JSON data strictly follows the format above.`;
     type === "surprise"
       ? `Generate a random popular recipe in the JSON format indicated in the system prompt taking into account user's culinary preferences and dietary restrictions.`
       : type === "suggest"
-      ? `Generate a recipe based on the following parameters: ${cuisineType} cusine for ${mealType} that has ${dietaryRestrictions} dietary restrictions, for ${servings} pax, that can be prepared in ${prepTime}, in the JSON format indicated in the system prompt.`
+      ? `Generate a recipe based on the following parameters: ${cuisineType} cuisine for ${mealType} that has ${dietaryRestrictions} dietary restrictions, for ${servings} pax, that can be prepared in ${prepTime}, in the JSON format indicated in the system prompt.`
       : type === "paste"
       ? `Convert the following text into a recipe in the JSON format indicated in the system prompt: ${input}`
       : "";
