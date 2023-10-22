@@ -27,13 +27,13 @@ class UsersController extends BaseController {
 
   // create user with form information
   async addUser(req, res) {
-    const { name, email, cusinePreferences, dietaryRestrictions } = req.body;
+    const { name, email, cuisinePreferences, dietaryRestrictions } = req.body;
 
     try {
       const contract = await this.model.create({
         name: name,
         email: email,
-        cusinePreferences: cusinePreferences,
+        cuisinePreferences: cuisinePreferences,
         dietaryRestrictions: dietaryRestrictions,
       });
 

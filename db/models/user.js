@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       isSubscribed: {
         type: DataTypes.BOOLEAN,
       },
-      cusinePreferences: {
+      cuisinePreferences: {
         type: DataTypes.STRING,
       },
       dietaryRestrictions: {
