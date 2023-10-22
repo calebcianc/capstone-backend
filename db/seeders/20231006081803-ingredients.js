@@ -63,8 +63,8 @@ module.exports = {
       },
       {
         // https://tasty.co/recipe/fajita-parchment-baked-chicken
-        name: "parchment paper, or aluminium foil",
-        quantity: "12x18 inches",
+        name: "12x18 inches parchment paper, or aluminium foil",
+        quantity: null,
         unitOfMeasurement: "",
         recipeId: 2,
         createdAt: new Date(),
@@ -80,7 +80,7 @@ module.exports = {
       },
       {
         name: "red pepper, sliced",
-        quantity: "0.5",
+        quantity: 0.5,
         unitOfMeasurement: "",
         recipeId: 2,
         createdAt: new Date(),
@@ -88,7 +88,7 @@ module.exports = {
       },
       {
         name: "yellow pepper",
-        quantity: "0.5",
+        quantity: 0.5,
         unitOfMeasurement: "",
         recipeId: 2,
         createdAt: new Date(),
@@ -96,7 +96,7 @@ module.exports = {
       },
       {
         name: "red onion, sliced",
-        quantity: "0.5",
+        quantity: 0.5,
         unitOfMeasurement: "",
         recipeId: 2,
         createdAt: new Date(),
@@ -291,7 +291,7 @@ module.exports = {
       },
       {
         name: "lemon",
-        quantity: "1/2",
+        quantity: 0.5,
         unitOfMeasurement: "",
         recipeId: 4,
         createdAt: new Date(),

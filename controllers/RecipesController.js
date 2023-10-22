@@ -1,11 +1,6 @@
 const BaseController = require("./BaseController");
 const generateOpenAiRecipe = require("../openAI");
 const InitializeUnsplash = require("../unsplash");
-const firebaseStorage = require("firebase/storage");
-const storage = require("../firebase").storage;
-const STORAGE_PROFILE_FOLDER_NAME = "UserData";
-
-const { ref: storageRef, uploadBytes, getDownloadURL } = firebaseStorage;
 
 class RecipesController extends BaseController {
   constructor(model, instructionModel, ingredientModel, userModel) {
@@ -180,6 +175,7 @@ class RecipesController extends BaseController {
     }
   }
 
+  // add recipe using manual / type
   async addRecipeToDatabase(req, res) {
     // const { data } = req.body;
 
@@ -230,38 +226,87 @@ class RecipesController extends BaseController {
         transaction,
       });
 
-      console.log("===> Upload instruction images to Firebase");
-      // New code: Upload images to Firebase and update instruction photo URLs
-      // for (let i = 0; i < recipe.instructions.length; i++) {
-      //   const instruction = recipe.instructions[i];
-      //   if (instruction.image) {
-      //     // Assuming image is a Buffer or Blob or a File object
-      //     const filePath = `${STORAGE_PROFILE_FOLDER_NAME}/${userId}/recipe/${
-      //       newRecipeInstance.id
-      //     }/instructionImage/${i + 1}/${instruction.image.name}`;
-      //     const fileRef = storageRef(storage, filePath);
-      //     const snapshot = await uploadBytes(fileRef, instruction.image);
-      //     const instructionPhotoUrl = await getDownloadURL(snapshot.ref);
-
-      //     // Update the photoUrl of the instruction in the database
-      //     await this.instructionModel.update(
-      //       { photoUrl: instructionPhotoUrl },
-      //       {
-      //         where: {
-      //           recipeId: newRecipeInstance.id,
-      //           step: i + 1,
-      //         },
-      //         transaction,
-      //       }
-      //     );
-      //   }
-      // }
-
       await transaction.commit();
 
       console.log("===> newRecipeInstance", JSON.stringify(newRecipeInstance));
 
       return res.json(newRecipeInstance);
+    } catch (err) {
+      await transaction.rollback();
+
+      const isClientError = [
+        "Could not fetch recipe",
+        "Could not fetch image",
+      ].includes(err.message);
+      const statusCode = isClientError ? 400 : 500;
+
+      return res.status(statusCode).json({ error: true, msg: err.message });
+    }
+  }
+
+  // update recipe
+  async updateRecipeInDatabase(req, res) {
+    const { recipe, userId } = req.body;
+    const { recipeId } = req.params;
+    let transaction;
+
+    try {
+      // initialise a transaction to ensure that all the data is saved to the database
+      transaction = await this.model.sequelize.transaction();
+
+      console.log("===> Update recipe instance");
+      // Update the recipe fields
+      await this.model.update(
+        {
+          name: recipe.name,
+          totalTime: recipe.prepTime,
+          isPublic: recipe.isPublic,
+        },
+        { where: { recipeId }, transaction }
+      );
+
+      console.log("===> Update ingredients instances");
+
+      for (const ingredient of recipe.ingredients) {
+        await this.ingredientModel.update(
+          {
+            name: ingredient.name,
+            quantity: ingredient.quantity,
+            unitOfMeasurement: ingredient.unitOfMeasurement,
+          },
+          {
+            where: { ingredientId: ingredient.id, recipeId: recipeId },
+            transaction,
+          }
+        );
+      }
+
+      console.log("===> Update instructions instances");
+      for (const instruction of recipe.instructions) {
+        await this.instructionModel.update(
+          {
+            instruction: instruction.instruction,
+            step: instruction.step,
+            timeInterval: instruction.timeInterval,
+          },
+          {
+            where: { instructionId: instruction.id, recipeId: recipeId },
+            transaction,
+          }
+        );
+      }
+
+      // Retrieve the updated recipe instance
+      const updatedRecipe = await this.model.findOne({
+        where: { recipeId },
+        transaction,
+      });
+
+      await transaction.commit();
+
+      console.log("===> newRecipeInstance", JSON.stringify(newRecipeInstance));
+
+      return res.json({ success: true, updatedRecipe });
     } catch (err) {
       await transaction.rollback();
 

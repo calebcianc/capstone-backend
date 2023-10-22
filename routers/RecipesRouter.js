@@ -21,6 +21,11 @@ class RecipesRouter {
     );
 
     router.put(
+      "/updateRecipe/:recipeid",
+      this.controller.updateRecipeInDatabase.bind(this.controller)
+    );
+
+    router.put(
       "/saveImageUrl/:recipeId",
       this.controller.updatePhoto.bind(this.controller)
     );
