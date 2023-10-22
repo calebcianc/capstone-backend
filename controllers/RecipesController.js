@@ -107,6 +107,7 @@ class RecipesController extends BaseController {
       const newRecipeInstance = await this.model.create({
         name: parsedNewRecipe.name,
         totalTime: parsedNewRecipe.totalTime,
+        servingSize: parsedNewRecipe.servingSize,
         isPublic: isPublic ? isPublic : false,
         cuisine: parsedNewRecipe.cuisine,
         dietaryRestrictions: parsedNewRecipe.dietaryRestrictions,

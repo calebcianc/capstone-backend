@@ -27,6 +27,10 @@ module.exports = (sequelize, DataTypes) => {
       totalTime: {
         type: DataTypes.STRING,
       },
+      servingSize: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
       lastCookedDate: {
         type: DataTypes.DATE,
         allowNull: true,

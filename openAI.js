@@ -26,6 +26,7 @@ const messages = (type, input, cuisinePreferences, userDietaryRestrictions) => {
 {
     "name": "RECIPE_NAME",
     "totalTime": TIME_IN_MINUTES,
+    "servingSize": SIZE_IN_PAX,
     "cuisine": "CUISINE_TYPE",
     "dietaryRestrictions": "DIETARY_RESTRICTIONS",
     "ingredients": [
