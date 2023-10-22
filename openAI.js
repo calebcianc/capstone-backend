@@ -52,6 +52,7 @@ For instance:
 {
     "name": "Spaghetti Aglio e Olio",
     "totalTime": 15,
+    "servingSize": 1,
     "cuisine": "Italian",
     "dietaryRestrictions": "Vegetarian",
     "ingredients": [
