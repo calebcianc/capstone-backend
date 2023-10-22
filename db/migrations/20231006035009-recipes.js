@@ -15,6 +15,10 @@ module.exports = {
       totalTime: {
         type: Sequelize.INTEGER,
       },
+      servingSize: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+      },
       lastCookedDate: {
         type: Sequelize.DATE,
         allowNull: true,
