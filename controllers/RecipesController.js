@@ -354,6 +354,25 @@ class RecipesController extends BaseController {
       return res.status(400).json({ error: true, msg: err.message });
     }
   }
+
+  // update lastcookeddate
+  async updateLastCookDate(req, res) {
+    try {
+      const { lastCookedDate } = req.body;
+      const { recipeId } = req.params;
+
+      const recipeToEdit = await this.model.findOne({
+        where: { id: recipeId },
+      });
+      if (!recipeToEdit) {
+        return res.status(404).json({ error: true, msg: "recipe not found" });
+      }
+      await recipeToEdit.update({ lastCookedDate: lastCookedDate });
+      return res.json(recipeToEdit);
+    } catch (err) {
+      return res.status(400).json({ error: true, msg: err.message });
+    }
+  }
 }
 
 module.exports = RecipesController;
