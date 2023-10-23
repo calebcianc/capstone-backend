@@ -1,3 +1,6 @@
+// console.log("Environment variable DIALECT:", process.env.DIALECT);
+// console.log(process.env.NODE_ENV);
+
 const env = process.env.NODE_ENV || "production";
 const config = require(__dirname + "/config/database.js")[env];
 const cors = require("cors");
@@ -21,7 +24,7 @@ if (process.env.DATABASE_URL) {
 } else {
   sequelize = new Sequelize(config.database, config.username, config.password, {
     host: config.host,
-    dialect: config.dialect,
+    dialect: config.dialect || "postgres",
   });
 }
 
