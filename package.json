@@ -19,6 +19,7 @@
     "unsplash-js": "^7.0.18"
   },
   "devDependencies": {
+    "@flydotio/dockerfile": "^0.4.10",
     "nodemon": "^3.0.1",
     "sequelize-cli": "^6.6.1"
   },
