@@ -255,17 +255,33 @@ class RecipesController extends BaseController {
       transaction = await this.model.sequelize.transaction();
 
       console.log("===> Update recipe instance");
+      console.log(
+        recipeId,
+        recipe.id,
+        recipe.name,
+        recipe.prepTime,
+        recipe.isPublic,
+        recipe.cuisineType,
+        recipe.dietaryRestrictions
+      );
       // Update the recipe fields
       await this.model.update(
         {
           name: recipe.name,
           totalTime: recipe.prepTime,
           isPublic: recipe.isPublic,
+          cuisine: recipe.cuisineType,
+          dietaryRestrictions: recipe.dietaryRestrictions,
         },
-        { where: { recipeId }, transaction }
+        { where: { id: recipeId }, transaction }
       );
 
       console.log("===> Update ingredients instances");
+
+      console.log(
+        "===> recipe.ingredients[0]:",
+        JSON.stringify(recipe.ingredients[0])
+      );
 
       for (const ingredient of recipe.ingredients) {
         await this.ingredientModel.update(
@@ -275,7 +291,7 @@ class RecipesController extends BaseController {
             unitOfMeasurement: ingredient.unitOfMeasurement,
           },
           {
-            where: { ingredientId: ingredient.id, recipeId: recipeId },
+            where: { id: ingredient.id },
             transaction,
           }
         );
@@ -290,7 +306,7 @@ class RecipesController extends BaseController {
             timeInterval: instruction.timeInterval,
           },
           {
-            where: { instructionId: instruction.id, recipeId: recipeId },
+            where: { id: instruction.id },
             transaction,
           }
         );
@@ -298,15 +314,15 @@ class RecipesController extends BaseController {
 
       // Retrieve the updated recipe instance
       const updatedRecipe = await this.model.findOne({
-        where: { recipeId },
+        where: { id: recipeId },
         transaction,
       });
 
       await transaction.commit();
 
-      console.log("===> newRecipeInstance", JSON.stringify(newRecipeInstance));
+      console.log("===> newRecipeInstance", JSON.stringify(updatedRecipe));
 
-      return res.json({ success: true, updatedRecipe });
+      return res.json(updatedRecipe);
     } catch (err) {
       await transaction.rollback();
 
