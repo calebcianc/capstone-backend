@@ -4,7 +4,6 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.bulkInsert("recipes", [
       {
-        // https://www.kitchenstories.com/en/recipes/traditional-garlic-and-olive-oil-pasta
         name: "Spaghetti aglio e olio",
         totalTime: 15,
         servingSize: 1,
@@ -16,9 +15,10 @@ module.exports = {
         creatorId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
+        cuisine: "Italian",
+        dietaryRestrictions: "None",
       },
       {
-        // https://tasty.co/recipe/fajita-parchment-baked-chicken
         name: "Fajita Parchment-Baked Chicken",
         totalTime: 195,
         servingSize: 1,
@@ -30,9 +30,10 @@ module.exports = {
         creatorId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
+        cuisine: "Mexican",
+        dietaryRestrictions: "None",
       },
       {
-        // https://www.kitchenstories.com/en/recipes/eggplant-unagi-japanese-style-glazed-eggplant
         name: "Eggplant Unagi",
         totalTime: 30,
         servingSize: 1,
@@ -44,10 +45,10 @@ module.exports = {
         creatorId: 2,
         createdAt: new Date(),
         updatedAt: new Date(),
+        cuisine: "Japanese",
+        dietaryRestrictions: "Vegan",
       },
       {
-        // https://www.kitchenstories.com/en/recipes/creamy-kohlrabi-with-nutmeg
-        // private recipe
         name: "Creamy kohlrabi with nutmegcream",
         totalTime: 30,
         servingSize: 1,
@@ -59,10 +60,10 @@ module.exports = {
         creatorId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
+        cuisine: "French",
+        dietaryRestrictions: "Vegetarian",
       },
       {
-        // https://www.kitchenstories.com/en/recipes/traditional-garlic-and-olive-oil-pasta
-        // Jane Doe get recipe from GR
         name: "Spaghetti aglio e olio",
         totalTime: 15,
         servingSize: 1,
@@ -74,6 +75,8 @@ module.exports = {
         creatorId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
+        cuisine: "Italian",
+        dietaryRestrictions: "None",
       },
     ]);
   },

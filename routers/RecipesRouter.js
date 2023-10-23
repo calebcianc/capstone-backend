@@ -21,7 +21,7 @@ class RecipesRouter {
     );
 
     router.put(
-      "/updateRecipe/:recipeid",
+      "/updateRecipe/:recipeId",
       this.controller.updateRecipeInDatabase.bind(this.controller)
     );
 
