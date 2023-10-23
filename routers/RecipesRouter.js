@@ -30,6 +30,11 @@ class RecipesRouter {
       this.controller.updatePhoto.bind(this.controller)
     );
 
+    router.put(
+      "/updateLastCookDate/:recipeId",
+      this.controller.updateLastCookDate.bind(this.controller)
+    );
+
     return router;
   }
 }
