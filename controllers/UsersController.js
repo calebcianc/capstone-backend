@@ -33,6 +33,7 @@ class UsersController extends BaseController {
       const contract = await this.model.create({
         name: name,
         email: email,
+        profilePictureUrl: null,
         cusinePreferences: cusinePreferences,
         dietaryRestrictions: dietaryRestrictions,
       });

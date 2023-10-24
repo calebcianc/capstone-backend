@@ -26,6 +26,9 @@ module.exports = (sequelize, DataTypes) => {
       isSubscribed: {
         type: DataTypes.BOOLEAN,
       },
+      profilePictureUrl: {
+        type: DataTypes.STRING,
+      },
       cusinePreferences: {
         type: DataTypes.STRING,
       },
