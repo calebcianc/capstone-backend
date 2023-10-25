@@ -1,3 +1,6 @@
+// console.log("Environment variable DIALECT:", process.env.DIALECT);
+// console.log(process.env.NODE_ENV);
+
 const env = process.env.NODE_ENV || "production";
 const config = require(__dirname + "/config/database.js")[env];
 const cors = require("cors");
