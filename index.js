@@ -20,8 +20,8 @@ if (process.env.DATABASE_URL) {
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
   sequelize = new Sequelize(config.database, config.username, config.password, {
-    host: config.host,
-    dialect: config.dialect,
+    ...config,
+    dialect: config.dialect || "postgres", // <-- Explicitly provide dialect
   });
 }
 
@@ -95,6 +95,7 @@ app.post("/synthesize", express.json(), (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+const HOST = "0.0.0.0"; // Listen on all network interfaces
+app.listen(PORT, HOST, () => {
   console.log(`Server is running on port ${PORT}`);
 });
