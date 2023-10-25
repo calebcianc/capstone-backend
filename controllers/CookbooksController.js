@@ -1,14 +1,14 @@
 const BaseController = require("./BaseController");
 
-class FoldersController extends BaseController {
+class CookbooksController extends BaseController {
   constructor(model, recipeModel, userModel) {
     super(model);
     this.recipeModel = recipeModel;
     this.userModel = userModel;
   }
 
-  // Get all folders and recipes for a user
-  async getUserFolderRecipes(req, res) {
+  // Get all cookbooks and recipes for a user
+  async getUserCookbookRecipes(req, res) {
     const { email } = req.params;
 
     try {
@@ -20,8 +20,8 @@ class FoldersController extends BaseController {
         },
       });
 
-      // get user folder recipe
-      const FolderRecipe = await this.model.findAll({
+      // get user cookbook recipe
+      const CookbookRecipe = await this.model.findAll({
         include: [
           {
             model: this.recipeModel,
@@ -38,12 +38,12 @@ class FoldersController extends BaseController {
         },
       });
 
-      if (!FolderRecipe) {
-        return res.status(404).json({ error: true, msg: "Folder not found" });
+      if (!CookbookRecipe) {
+        return res.status(404).json({ error: true, msg: "Cookbook not found" });
       }
-      return res.json(FolderRecipe);
+      return res.json(CookbookRecipe);
     } catch (error) {
-      console.error("Error fetching folder recipes:", error);
+      console.error("Error fetching cookbook recipes:", error);
       return res
         .status(500)
         .json({ error: true, msg: "Internal Server Error" });
@@ -51,4 +51,4 @@ class FoldersController extends BaseController {
   }
 }
 
-module.exports = FoldersController;
+module.exports = CookbooksController;

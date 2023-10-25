@@ -2,18 +2,26 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("folders", {
+    await queryInterface.createTable("recipe_cookbooks", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      name: {
-        type: Sequelize.STRING,
-      },
-      userId: {
+      recipeId: {
         type: Sequelize.INTEGER,
+        references: {
+          model: "recipes",
+          key: "id",
+        },
+      },
+      cookbookId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "cookbooks",
+          key: "id",
+        },
       },
       createdAt: {
         type: Sequelize.DATE,
@@ -27,6 +35,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("folders");
+    await queryInterface.dropTable("recipe_cookbooks");
   },
 };

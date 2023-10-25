@@ -2,12 +2,13 @@
 
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Category extends Model {
+  class Cookbook extends Model {
     static associate(models) {
-      this.belongsToMany(models.recipe, { through: "recipe_categories" });
+      this.belongsTo(models.user);
+      this.belongsToMany(models.recipe, { through: "recipe_cookbooks" });
     }
   }
-  Category.init(
+  Cookbook.init(
     {
       id: {
         allowNull: false,
@@ -17,6 +18,14 @@ module.exports = (sequelize, DataTypes) => {
       },
       name: {
         type: DataTypes.STRING,
+      },
+      userId: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: "user",
+          key: "id",
+        },
+        allowNull: false,
       },
       createdAt: {
         type: DataTypes.DATE,
@@ -31,9 +40,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "category",
+      modelName: "cookbook",
       // underscored: true,
     }
   );
-  return Category;
+  return Cookbook;
 };

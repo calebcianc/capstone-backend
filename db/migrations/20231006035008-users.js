@@ -24,6 +24,10 @@ module.exports = {
       isSubscribed: {
         type: Sequelize.BOOLEAN,
       },
+      addedRecipes: {
+        type: Sequelize.ARRAY(Sequelize.INTEGER),
+        allowNull: true,
+      },
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false,

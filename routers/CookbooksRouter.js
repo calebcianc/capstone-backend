@@ -1,4 +1,4 @@
-class FoldersRouter {
+class CookbooksRouter {
   constructor(express, controller) {
     this.express = express;
     this.controller = controller;
@@ -8,10 +8,10 @@ class FoldersRouter {
     const router = this.express.Router();
     router.get(
       "/:email",
-      this.controller.getUserFolderRecipes.bind(this.controller)
+      this.controller.getUserCookbookRecipes.bind(this.controller)
     );
     return router;
   }
 }
 
-module.exports = FoldersRouter;
+module.exports = CookbooksRouter;

@@ -4,10 +4,7 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class recipe extends Model {
     static associate(models) {
-      this.belongsToMany(models.category, {
-        through: "recipe_categories",
-      });
-      this.belongsToMany(models.folder, { through: "recipe_folders" });
+      this.belongsToMany(models.cookbook, { through: "recipe_cookbooks" });
       this.belongsTo(models.user);
       this.hasMany(models.ingredient);
       this.hasMany(models.instruction);

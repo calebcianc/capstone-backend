@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       this.hasOne(models.recipe);
       this.hasMany(models.recipe);
-      this.hasMany(models.folder);
+      this.hasMany(models.cookbook);
     }
   }
   User.init(
@@ -31,6 +31,10 @@ module.exports = (sequelize, DataTypes) => {
       },
       dietaryRestrictions: {
         type: DataTypes.STRING,
+      },
+      addedRecipes: {
+        type: DataTypes.ARRAY(DataTypes.INTEGER),
+        allowNull: true,
       },
       createdAt: {
         type: DataTypes.DATE,

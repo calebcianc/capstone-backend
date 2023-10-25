@@ -31,10 +31,8 @@ if (process.env.DATABASE_URL) {
 const { synthesizeSpeech } = require("./text2speech.js");
 
 // router and controllers
-const CategoriesRouter = require("./routers/CategoriesRouter");
-const CategoriesController = require("./controllers/CategoriesController");
-const FoldersRouter = require("./routers/FoldersRouter");
-const FoldersController = require("./controllers/FoldersController");
+const CookbooksRouter = require("./routers/CookbooksRouter.js");
+const CookbooksController = require("./controllers/CookbooksController.js");
 const IngredientsRouter = require("./routers/IngredientsRouter");
 const IngredientsController = require("./controllers/IngredientsController");
 const InstructionsRouter = require("./routers/InstructionsRouter");
@@ -45,16 +43,13 @@ const UsersRouter = require("./routers/UsersRouter");
 const UsersController = require("./controllers/UsersController");
 
 const db = require("./db/models/index");
-const { category, folder, ingredient, instruction, recipe, user } = db;
+const { cookbook, ingredient, instruction, recipe, user } = db;
 
-const categoriesController = new CategoriesController(category);
-const categoriesRouter = new CategoriesRouter(
+const cookbooksController = new CookbooksController(cookbook, recipe, user);
+const cookbooksRouter = new CookbooksRouter(
   express,
-  categoriesController
+  cookbooksController
 ).routes();
-
-const foldersController = new FoldersController(folder, recipe, user);
-const foldersRouter = new FoldersRouter(express, foldersController).routes();
 
 const ingredientsController = new IngredientsController(ingredient);
 const ingredientsRouter = new IngredientsRouter(
@@ -76,20 +71,19 @@ const instructionsRouter = new InstructionsRouter(
   instructionsController
 ).routes();
 
-const usersController = new UsersController(user);
+const usersController = new UsersController(user, cookbook);
 const usersRouter = new UsersRouter(express, usersController).routes();
 
 // routing
 app.use(cors());
 app.use(express.json());
-app.use("/categories", categoriesRouter);
-app.use("/folders", foldersRouter);
+app.use("/cookbooks", cookbooksRouter);
 app.use("/ingredients", ingredientsRouter);
 app.use("/instructions", instructionsRouter);
 app.use("/recipes", recipesRouter);
 app.use("/users", usersRouter);
 
-// to break the following code into its own controller and route files
+// code which uses google's text2speech module
 app.post("/synthesize", express.json(), (req, res) => {
   const text = req.body.text;
   synthesizeSpeech(text)

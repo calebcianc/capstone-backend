@@ -2,28 +2,28 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.bulkInsert("recipe_folders", [
+    await queryInterface.bulkInsert("cookbooks", [
       {
-        recipeId: 1,
-        folderId: 1,
+        name: "Personally created",
+        userId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        recipeId: 2,
-        folderId: 1,
+        name: "Added from Explore",
+        userId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        recipeId: 3,
-        folderId: 2,
+        name: "Personally created",
+        userId: 2,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        recipeId: 2,
-        folderId: 2,
+        name: "Added from Explore",
+        userId: 2,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -31,6 +31,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete("recipe_folders", null, {});
+    await queryInterface.bulkDelete("cookbooks", null, {});
   },
 };
