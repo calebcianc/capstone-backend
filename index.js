@@ -61,7 +61,8 @@ const recipesController = new RecipesController(
   recipe,
   instruction,
   ingredient,
-  user
+  user,
+  cookbook
 );
 const recipesRouter = new RecipesRouter(express, recipesController).routes();
 

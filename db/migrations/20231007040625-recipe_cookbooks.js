@@ -15,6 +15,8 @@ module.exports = {
           model: "recipes",
           key: "id",
         },
+        allowNull: false, // Ensure that recipeId cannot be null
+        onDelete: "CASCADE", // Optionally, cascade delete entries when a recipe is deleted
       },
       cookbookId: {
         type: Sequelize.INTEGER,
@@ -22,6 +24,8 @@ module.exports = {
           model: "cookbooks",
           key: "id",
         },
+        allowNull: false, // Ensure that cookbookId cannot be null
+        onDelete: "CASCADE", // Optionally, cascade delete entries when a cookbook is deleted
       },
       createdAt: {
         type: Sequelize.DATE,
