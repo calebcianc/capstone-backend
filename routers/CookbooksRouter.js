@@ -6,10 +6,21 @@ class CookbooksRouter {
 
   routes() {
     const router = this.express.Router();
+    // router.get(
+    //   "/:email",
+    //   this.controller.getUserCookbookRecipes.bind(this.controller)
+    // );
+
     router.get(
-      "/:email",
-      this.controller.getUserCookbookRecipes.bind(this.controller)
+      "/:userId",
+      this.controller.getUserCookbooks.bind(this.controller)
     );
+
+    router.put(
+      "/:userId/:recipeId",
+      this.controller.addToCookbook.bind(this.controller)
+    );
+
     return router;
   }
 }
