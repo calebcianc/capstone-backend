@@ -4,9 +4,9 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.bulkInsert("recipes", [
       {
-        // https://www.kitchenstories.com/en/recipes/traditional-garlic-and-olive-oil-pasta
-        totalTime: 15,
         name: "Spaghetti aglio e olio",
+        totalTime: 15,
+        servingSize: 1,
         lastCookedDate: null,
         isPublic: true,
         recipeImageUrl:
@@ -15,11 +15,13 @@ module.exports = {
         creatorId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
+        cuisine: "Italian",
+        dietaryRestrictions: "None",
       },
       {
-        // https://tasty.co/recipe/fajita-parchment-baked-chicken
-        totalTime: 195,
         name: "Fajita Parchment-Baked Chicken",
+        totalTime: 195,
+        servingSize: 1,
         lastCookedDate: null,
         isPublic: true,
         recipeImageUrl:
@@ -28,11 +30,13 @@ module.exports = {
         creatorId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
+        cuisine: "Mexican",
+        dietaryRestrictions: "None",
       },
       {
-        // https://www.kitchenstories.com/en/recipes/eggplant-unagi-japanese-style-glazed-eggplant
-        totalTime: 30,
         name: "Eggplant Unagi",
+        totalTime: 30,
+        servingSize: 1,
         lastCookedDate: null,
         isPublic: true,
         recipeImageUrl:
@@ -41,12 +45,13 @@ module.exports = {
         creatorId: 2,
         createdAt: new Date(),
         updatedAt: new Date(),
+        cuisine: "Japanese",
+        dietaryRestrictions: "Vegan",
       },
       {
-        // https://www.kitchenstories.com/en/recipes/creamy-kohlrabi-with-nutmeg
-        // private recipe
-        totalTime: 30,
         name: "Creamy kohlrabi with nutmegcream",
+        totalTime: 30,
+        servingSize: 1,
         lastCookedDate: null,
         isPublic: false,
         recipeImageUrl:
@@ -55,12 +60,13 @@ module.exports = {
         creatorId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
+        cuisine: "French",
+        dietaryRestrictions: "Vegetarian",
       },
       {
-        // https://www.kitchenstories.com/en/recipes/traditional-garlic-and-olive-oil-pasta
-        // Jane Doe get recipe from GR
-        totalTime: 15,
         name: "Spaghetti aglio e olio",
+        totalTime: 15,
+        servingSize: 1,
         lastCookedDate: null,
         isPublic: false,
         recipeImageUrl:
@@ -69,6 +75,8 @@ module.exports = {
         creatorId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
+        cuisine: "Italian",
+        dietaryRestrictions: "None",
       },
     ]);
   },

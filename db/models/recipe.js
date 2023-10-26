@@ -21,11 +21,15 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
+      name: {
+        type: DataTypes.STRING,
+      },
       totalTime: {
         type: DataTypes.STRING,
       },
-      name: {
+      servingSize: {
         type: DataTypes.STRING,
+        allowNull: true,
       },
       lastCookedDate: {
         type: DataTypes.DATE,
@@ -33,6 +37,14 @@ module.exports = (sequelize, DataTypes) => {
       },
       isPublic: {
         type: DataTypes.BOOLEAN,
+        allowNull: true,
+      },
+      cuisine: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      dietaryRestrictions: {
+        type: DataTypes.STRING,
         allowNull: true,
       },
       recipeImageUrl: {

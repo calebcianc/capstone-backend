@@ -65,15 +65,14 @@ class RecipesController extends BaseController {
   }
 
   async createRecipe(req, res) {
-    const { data, type, input, userId, isPublic } = req.body;
-
-    // if (!data) {
-    //   return res
-    //     .status(400)
-    //     .json({ error: true, msg: "Data is missing in request." });
-    // }
-
-    // const { type, input } = data;
+    const {
+      type,
+      input,
+      userId,
+      isPublic,
+      cuisinePreferences,
+      userDietaryRestrictions,
+    } = req.body;
 
     let transaction;
 
@@ -82,6 +81,8 @@ class RecipesController extends BaseController {
       const newRecipe = await generateOpenAiRecipe({
         type,
         input,
+        cuisinePreferences,
+        userDietaryRestrictions,
       });
 
       const parsedNewRecipe = JSON.parse(newRecipe);
@@ -101,9 +102,12 @@ class RecipesController extends BaseController {
       const newRecipeInstance = await this.model.create({
         name: parsedNewRecipe.name,
         totalTime: parsedNewRecipe.totalTime,
+        servingSize: parsedNewRecipe.servingSize,
+        isPublic: isPublic ? isPublic : false,
+        cuisine: parsedNewRecipe.cuisine,
+        dietaryRestrictions: parsedNewRecipe.dietaryRestrictions,
         userId: userId,
         creatorId: userId,
-        isPublic: isPublic ? isPublic : false,
       });
 
       console.log(
@@ -171,6 +175,7 @@ class RecipesController extends BaseController {
     }
   }
 
+  // add recipe using manual / type
   async addRecipeToDatabase(req, res) {
     // const { data } = req.body;
 
@@ -236,6 +241,136 @@ class RecipesController extends BaseController {
       const statusCode = isClientError ? 400 : 500;
 
       return res.status(statusCode).json({ error: true, msg: err.message });
+    }
+  }
+
+  // update recipe
+  async updateRecipeInDatabase(req, res) {
+    const { recipe, userId } = req.body;
+    const { recipeId } = req.params;
+    let transaction;
+
+    try {
+      // initialise a transaction to ensure that all the data is saved to the database
+      transaction = await this.model.sequelize.transaction();
+
+      console.log("===> Update recipe instance");
+      console.log(
+        recipeId,
+        recipe.id,
+        recipe.name,
+        recipe.prepTime,
+        recipe.isPublic,
+        recipe.cuisineType,
+        recipe.dietaryRestrictions
+      );
+      // Update the recipe fields
+      await this.model.update(
+        {
+          name: recipe.name,
+          totalTime: recipe.prepTime,
+          isPublic: recipe.isPublic,
+          cuisine: recipe.cuisineType,
+          dietaryRestrictions: recipe.dietaryRestrictions,
+        },
+        { where: { id: recipeId }, transaction }
+      );
+
+      console.log("===> Update ingredients instances");
+
+      console.log(
+        "===> recipe.ingredients[0]:",
+        JSON.stringify(recipe.ingredients[0])
+      );
+
+      for (const ingredient of recipe.ingredients) {
+        await this.ingredientModel.update(
+          {
+            name: ingredient.name,
+            quantity: ingredient.quantity,
+            unitOfMeasurement: ingredient.unitOfMeasurement,
+          },
+          {
+            where: { id: ingredient.id },
+            transaction,
+          }
+        );
+      }
+
+      console.log("===> Update instructions instances");
+      for (const instruction of recipe.instructions) {
+        await this.instructionModel.update(
+          {
+            instruction: instruction.instruction,
+            step: instruction.step,
+            timeInterval: instruction.timeInterval,
+          },
+          {
+            where: { id: instruction.id },
+            transaction,
+          }
+        );
+      }
+
+      // Retrieve the updated recipe instance
+      const updatedRecipe = await this.model.findOne({
+        where: { id: recipeId },
+        transaction,
+      });
+
+      await transaction.commit();
+
+      console.log("===> newRecipeInstance", JSON.stringify(updatedRecipe));
+
+      return res.json(updatedRecipe);
+    } catch (err) {
+      await transaction.rollback();
+
+      const isClientError = [
+        "Could not fetch recipe",
+        "Could not fetch image",
+      ].includes(err.message);
+      const statusCode = isClientError ? 400 : 500;
+
+      return res.status(statusCode).json({ error: true, msg: err.message });
+    }
+  }
+
+  // update recipe photo
+  async updatePhoto(req, res) {
+    try {
+      let photoUrlToAdd = req.body;
+      const { recipeId } = req.params;
+
+      const recipeToEdit = await this.model.findOne({
+        where: { id: recipeId },
+      });
+      if (!recipeToEdit) {
+        return res.status(404).json({ error: true, msg: "recipe not found" });
+      }
+      await recipeToEdit.update(photoUrlToAdd);
+      return res.json(recipeToEdit);
+    } catch (err) {
+      return res.status(400).json({ error: true, msg: err.message });
+    }
+  }
+
+  // update lastcookeddate
+  async updateLastCookDate(req, res) {
+    try {
+      const { lastCookedDate } = req.body;
+      const { recipeId } = req.params;
+
+      const recipeToEdit = await this.model.findOne({
+        where: { id: recipeId },
+      });
+      if (!recipeToEdit) {
+        return res.status(404).json({ error: true, msg: "recipe not found" });
+      }
+      await recipeToEdit.update({ lastCookedDate: lastCookedDate });
+      return res.json(recipeToEdit);
+    } catch (err) {
+      return res.status(400).json({ error: true, msg: err.message });
     }
   }
 }
