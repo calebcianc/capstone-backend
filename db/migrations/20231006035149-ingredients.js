@@ -15,17 +15,17 @@ module.exports = {
       quantity: {
         type: Sequelize.STRING,
       },
-      unitOfMeasurement: {
+      unit_of_measurement: {
         type: Sequelize.STRING,
       },
-      recipeId: {
+      recipe_id: {
         type: Sequelize.INTEGER,
       },
-      createdAt: {
+      created_at: {
         type: Sequelize.DATE,
         allowNull: false,
       },
-      updatedAt: {
+      updated_at: {
         type: Sequelize.DATE,
         allowNull: false,
       },

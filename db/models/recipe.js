@@ -4,7 +4,14 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class recipe extends Model {
     static associate(models) {
-      this.belongsToMany(models.cookbook, { through: "recipe_cookbooks" });
+      this.belongsToMany(models.cookbook, {
+        through: {
+          model: "recipe_cookbooks",
+          unique: false,
+          foreignKey: "recipe_id",
+          otherKey: "cookbook_id",
+        },
+      });
       this.belongsTo(models.user);
       this.hasMany(models.ingredient);
       this.hasMany(models.instruction);
@@ -78,7 +85,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "recipe",
-      // underscored: true,
+      underscored: true,
     }
   );
   return recipe;

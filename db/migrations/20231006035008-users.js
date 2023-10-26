@@ -15,24 +15,23 @@ module.exports = {
       email: {
         type: Sequelize.STRING,
       },
-      cuisinePreferences: {
+      cuisine_preferences: {
         type: Sequelize.STRING,
       },
-      dietaryRestrictions: {
+      dietary_restrictions: {
         type: Sequelize.STRING,
       },
-      isSubscribed: {
+      is_subscribed: {
         type: Sequelize.BOOLEAN,
       },
-      addedRecipes: {
-        type: Sequelize.ARRAY(Sequelize.INTEGER),
-        allowNull: true,
+      added_recipes: {
+        type: Sequelize.STRING,
       },
-      createdAt: {
+      created_at: {
         type: Sequelize.DATE,
         allowNull: false,
       },
-      updatedAt: {
+      updated_at: {
         type: Sequelize.DATE,
         allowNull: false,
       },

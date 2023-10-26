@@ -9,7 +9,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      recipeId: {
+      recipe_id: {
         type: Sequelize.INTEGER,
         references: {
           model: "recipes",
@@ -18,7 +18,7 @@ module.exports = {
         allowNull: false, // Ensure that recipeId cannot be null
         onDelete: "CASCADE", // Optionally, cascade delete entries when a recipe is deleted
       },
-      cookbookId: {
+      cookbook_id: {
         type: Sequelize.INTEGER,
         references: {
           model: "cookbooks",
@@ -27,11 +27,11 @@ module.exports = {
         allowNull: false, // Ensure that cookbookId cannot be null
         onDelete: "CASCADE", // Optionally, cascade delete entries when a cookbook is deleted
       },
-      createdAt: {
+      created_at: {
         type: Sequelize.DATE,
         allowNull: false,
       },
-      updatedAt: {
+      updated_at: {
         type: Sequelize.DATE,
         allowNull: false,
       },

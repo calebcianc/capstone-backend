@@ -4,7 +4,7 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
-      this.hasOne(models.recipe);
+      // this.hasOne(models.recipe);
       this.hasMany(models.recipe);
       this.hasMany(models.cookbook);
     }
@@ -33,8 +33,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
       },
       addedRecipes: {
-        type: DataTypes.ARRAY(DataTypes.INTEGER),
-        allowNull: true,
+        type: DataTypes.STRING,
       },
       createdAt: {
         type: DataTypes.DATE,
@@ -50,7 +49,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "user",
-      // underscored: true,
+      underscored: true,
     }
   );
   return User;

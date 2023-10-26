@@ -5,7 +5,14 @@ module.exports = (sequelize, DataTypes) => {
   class Cookbook extends Model {
     static associate(models) {
       this.belongsTo(models.user);
-      this.belongsToMany(models.recipe, { through: "recipe_cookbooks" });
+      this.belongsToMany(models.recipe, {
+        through: {
+          model: "recipe_cookbooks",
+          unique: false,
+          foreignKey: "cookbook_id",
+          otherKey: "recipe_id",
+        },
+      });
     }
   }
   Cookbook.init(
@@ -41,7 +48,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "cookbook",
-      // underscored: true,
+      underscored: true,
     }
   );
   return Cookbook;
