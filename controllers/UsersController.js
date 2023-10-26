@@ -58,6 +58,64 @@ class UsersController extends BaseController {
       return res.status(400).json({ error: true, msg: err.message });
     }
   }
+
+  // update user picture
+  async updateUserPicture(req, res) {
+    const { email, profilePictureUrl } = req.body;
+
+    try {
+      const userProfile = await this.model.update(
+        { profilePictureUrl: profilePictureUrl },
+        {
+          where: {
+            email: email,
+          },
+        }
+      );
+
+      return res.json(userProfile);
+    } catch (err) {
+      return res.status(400).json({ error: true, msg: err.message });
+    }
+  }
+
+  // update user cuisine preferences
+  async updateCusinePreferences(req, res) {
+    const { userId, cusinePreferences } = req.body;
+
+    try {
+      const output = await this.model.update(
+        { cusinePreferences: cusinePreferences },
+        {
+          where: {
+            id: userId,
+          },
+        }
+      );
+      return res.json(output);
+    } catch (err) {
+      return res.status(400).json({ error: true, msg: err.message });
+    }
+  }
+
+  // update user dietiary restrictions
+  async updateDietiaryRestrictions(req, res) {
+    const { userId, dietaryRestrictions } = req.body;
+
+    try {
+      const output = await this.model.update(
+        { dietaryRestrictions: dietaryRestrictions },
+        {
+          where: {
+            id: userId,
+          },
+        }
+      );
+      return res.json(output);
+    } catch (err) {
+      return res.status(400).json({ error: true, msg: err.message });
+    }
+  }
 }
 
 module.exports = UsersController;
