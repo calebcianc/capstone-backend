@@ -16,6 +16,11 @@ class CookbooksRouter {
       this.controller.getUserCookbooks.bind(this.controller)
     );
 
+    router.get(
+      "/recipes/:userId",
+      this.controller.getRecipeCookbooks.bind(this.controller)
+    );
+
     router.put(
       "/:userId/:recipeId",
       this.controller.addToCookbook.bind(this.controller)

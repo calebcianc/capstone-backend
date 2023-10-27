@@ -45,7 +45,13 @@ const UsersController = require("./controllers/UsersController");
 const db = require("./db/models/index");
 const { cookbook, ingredient, instruction, recipe, user } = db;
 
-const cookbooksController = new CookbooksController(cookbook, recipe, user);
+const cookbooksController = new CookbooksController(
+  cookbook,
+  recipe,
+  user,
+  ingredient,
+  instruction
+);
 const cookbooksRouter = new CookbooksRouter(
   express,
   cookbooksController

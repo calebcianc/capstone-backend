@@ -19,7 +19,7 @@ module.exports = {
         is_subscribed: true,
         cuisine_preferences: "Japanese",
         dietary_restrictions: null,
-        added_recipes: "1",
+        added_recipes: "1-5",
         created_at: new Date(),
         updated_at: new Date(),
       },
