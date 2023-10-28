@@ -3,8 +3,9 @@ const axios = require("axios");
 require("dotenv").config();
 
 class UsersController extends BaseController {
-  constructor(model) {
+  constructor(model, cookbookModel) {
     super(model);
+    this.cookbookModel = cookbookModel;
   }
 
   // get user fist time login in status
@@ -30,13 +31,21 @@ class UsersController extends BaseController {
     const { name, email, cuisinePreferences, dietaryRestrictions } = req.body;
 
     try {
-      const contract = await this.model.create({
+      const user = await this.model.create({
         name: name,
         email: email,
         profilePictureUrl: null,
         cusinePreferences: cusinePreferences,
         dietaryRestrictions: dietaryRestrictions,
       });
+
+      // create default cookbooks for user
+      const cookbookNames = ["Personally created", "Added from explore"];
+      const cookbookPromises = cookbookNames.map((name) => {
+        return this.cookbookModel.create({ name: name, userId: user.id });
+      });
+
+      await Promise.all(cookbookPromises);
 
       return res.json("success");
     } catch (err) {

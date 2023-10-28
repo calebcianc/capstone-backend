@@ -2,32 +2,36 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("recipe_categories", {
+    await queryInterface.createTable("recipe_cookbooks", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      recipeId: {
+      recipe_id: {
         type: Sequelize.INTEGER,
         references: {
           model: "recipes",
           key: "id",
         },
+        allowNull: false, // Ensure that recipeId cannot be null
+        onDelete: "CASCADE", // Optionally, cascade delete entries when a recipe is deleted
       },
-      categoryId: {
+      cookbook_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: "categories",
+          model: "cookbooks",
           key: "id",
         },
+        allowNull: false, // Ensure that cookbookId cannot be null
+        onDelete: "CASCADE", // Optionally, cascade delete entries when a cookbook is deleted
       },
-      createdAt: {
+      created_at: {
         type: Sequelize.DATE,
         allowNull: false,
       },
-      updatedAt: {
+      updated_at: {
         type: Sequelize.DATE,
         allowNull: false,
       },
@@ -35,6 +39,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("recipe_categories");
+    await queryInterface.dropTable("recipe_cookbooks");
   },
 };

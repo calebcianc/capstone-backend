@@ -3,11 +3,19 @@ const generateOpenAiRecipe = require("../openAI");
 const InitializeUnsplash = require("../unsplash");
 
 class RecipesController extends BaseController {
-  constructor(model, instructionModel, ingredientModel, userModel) {
+  constructor(
+    model,
+    instructionModel,
+    ingredientModel,
+    userModel,
+    cookbookModel
+  ) {
     super(model);
     this.instructionModel = instructionModel;
     this.ingredientModel = ingredientModel;
     this.userModel = userModel;
+    this.cookbookModel = cookbookModel;
+    this.sequelize = model.sequelize;
   }
 
   // get all recipe
@@ -157,13 +165,43 @@ class RecipesController extends BaseController {
         transaction,
       });
 
+      // add recipe to user's cookbook (get cookbookId)
+      const cookbook = await this.cookbookModel.findOne({
+        where: { userId: userId, name: "Personally created" },
+        transaction,
+      });
+
+      if (!cookbook) {
+        throw newError("Could not find cookbook");
+      }
+
+      // add recipe to user's cookbook (create recipe_cookbook entry)
+      console.log(
+        "===> Add recipe to user's cookbook",
+        newRecipeInstance.id,
+        cookbook.id
+      );
+      await this.sequelize.query(
+        "INSERT INTO recipe_cookbooks (recipe_id, cookbook_id, created_at, updated_at) VALUES (?, ?, ?, ?)",
+        {
+          replacements: [
+            newRecipeInstance.id,
+            cookbook.id,
+            new Date(),
+            new Date(),
+          ],
+          transaction,
+        }
+      );
+
       await transaction.commit();
 
       console.log("===> newRecipeInstance", JSON.stringify(newRecipeInstance));
-      // console.log("allRecipes", JSON.stringify(allRecipes));
+
       return res.json(newRecipeInstance);
     } catch (err) {
       await transaction.rollback();
+      console.error("Error: ", err);
 
       const isClientError = [
         "Could not fetch recipe",
@@ -225,6 +263,35 @@ class RecipesController extends BaseController {
       await this.instructionModel.bulkCreate(bulkInstructions, {
         transaction,
       });
+
+      // add recipe to user's cookbook (get cookbookId)
+      const cookbook = await this.cookbookModel.findOne({
+        where: { userId: userId, name: "Personally created" },
+        transaction,
+      });
+
+      if (!cookbook) {
+        throw newError("Could not find cookbook");
+      }
+
+      // add recipe to user's cookbook (create recipe_cookbook entry)
+      console.log(
+        "===> Add recipe to user's cookbook",
+        newRecipeInstance.id,
+        cookbook.id
+      );
+      await this.sequelize.query(
+        "INSERT INTO recipe_cookbooks (recipe_id, cookbook_id, created_at, updated_at) VALUES (?, ?, ?, ?)",
+        {
+          replacements: [
+            newRecipeInstance.id,
+            cookbook.id,
+            new Date(),
+            new Date(),
+          ],
+          transaction,
+        }
+      );
 
       await transaction.commit();
 

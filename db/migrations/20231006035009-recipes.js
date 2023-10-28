@@ -12,18 +12,18 @@ module.exports = {
       name: {
         type: Sequelize.STRING,
       },
-      totalTime: {
+      total_time: {
         type: Sequelize.INTEGER,
       },
-      servingSize: {
+      serving_size: {
         type: Sequelize.INTEGER,
         allowNull: true,
       },
-      lastCookedDate: {
+      last_cooked_date: {
         type: Sequelize.DATE,
         allowNull: true,
       },
-      isPublic: {
+      is_public: {
         type: Sequelize.BOOLEAN,
         allowNull: true,
       },
@@ -31,25 +31,25 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      dietaryRestrictions: {
+      dietary_restrictions: {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      recipeImageUrl: {
+      recipe_image_url: {
         type: Sequelize.TEXT,
         allowNull: true,
       },
-      userId: {
+      user_id: {
         type: Sequelize.INTEGER,
       },
-      creatorId: {
+      creator_id: {
         type: Sequelize.INTEGER,
       },
-      createdAt: {
+      created_at: {
         type: Sequelize.DATE,
         allowNull: false,
       },
-      updatedAt: {
+      updated_at: {
         type: Sequelize.DATE,
         allowNull: false,
       },

@@ -15,21 +15,21 @@ module.exports = {
       step: {
         type: Sequelize.INTEGER,
       },
-      timeInterval: {
+      time_interval: {
         type: Sequelize.INTEGER,
       },
-      photoUrl: {
+      photo_url: {
         type: Sequelize.TEXT,
         allowNull: true,
       },
-      recipeId: {
+      recipe_id: {
         type: Sequelize.INTEGER,
       },
-      createdAt: {
+      created_at: {
         type: Sequelize.DATE,
         allowNull: false,
       },
-      updatedAt: {
+      updated_at: {
         type: Sequelize.DATE,
         allowNull: false,
       },
