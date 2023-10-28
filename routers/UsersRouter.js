@@ -19,6 +19,18 @@ class UsersController {
     );
 
     router.post("/", this.controller.addUser.bind(this.controller));
+    router.put(
+      "/profile/photo",
+      this.controller.updateUserPicture.bind(this.controller)
+    );
+    router.put(
+      "/profile/cusine-preferences",
+      this.controller.updateCusinePreferences.bind(this.controller)
+    );
+    router.put(
+      "/profile/dietary-restrictions",
+      this.controller.updateDietiaryRestrictions.bind(this.controller)
+    );
     return router;
   }
 }

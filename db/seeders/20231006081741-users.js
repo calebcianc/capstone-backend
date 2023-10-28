@@ -6,7 +6,9 @@ module.exports = {
       {
         name: "Gordon Ramsay",
         email: "gordon_ramsay@gmail.com",
+
         is_subscribed: true,
+profile_picture_url: null,
         cuisine_preferences: "French,Mexican",
         dietary_restrictions: "Keto,Paleo",
         added_recipes: null,
@@ -16,7 +18,9 @@ module.exports = {
       {
         name: "Jane Doe",
         email: "jane.doe@gmail.com",
+
         is_subscribed: true,
+profile_picture_url: null,
         cuisine_preferences: "Japanese",
         dietary_restrictions: null,
         added_recipes: "1-5",
