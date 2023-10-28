@@ -35,7 +35,7 @@ class UsersController extends BaseController {
         name: name,
         email: email,
         profilePictureUrl: null,
-        cusinePreferences: cusinePreferences,
+        cuisinePreferences: cuisinePreferences,
         dietaryRestrictions: dietaryRestrictions,
       });
 
@@ -90,11 +90,11 @@ class UsersController extends BaseController {
 
   // update user cuisine preferences
   async updateCusinePreferences(req, res) {
-    const { userId, cusinePreferences } = req.body;
+    const { userId, cuisinePreferences } = req.body;
 
     try {
       const output = await this.model.update(
-        { cusinePreferences: cusinePreferences },
+        { cuisinePreferences: cuisinePreferences },
         {
           where: {
             id: userId,

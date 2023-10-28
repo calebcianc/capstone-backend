@@ -24,7 +24,7 @@ class UsersController {
       this.controller.updateUserPicture.bind(this.controller)
     );
     router.put(
-      "/profile/cusine-preferences",
+      "/profile/cuisine-preferences",
       this.controller.updateCusinePreferences.bind(this.controller)
     );
     router.put(

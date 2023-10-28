@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
       profilePictureUrl: {
         type: DataTypes.STRING,
       },
-      cusinePreferences: {
+      cuisinePreferences: {
         type: DataTypes.STRING,
       },
       dietaryRestrictions: {
