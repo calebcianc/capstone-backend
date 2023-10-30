@@ -118,7 +118,7 @@ module.exports = {
       {
         instruction: "fajita parchment baked chicken is ready!",
         step: 8,
-        time_interval: 25,
+        time_interval: null,
         photo_url:
           "https://img.buzzfeed.com/buzzfeed-static/static/2023-04/19/15/asset/82c19baee9c9/sub-buzz-1261-1681919507-9.jpg?downsize=700%3A%2A&output-quality=auto&output-format=auto",
         recipe_id: 2,
