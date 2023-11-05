@@ -12,7 +12,7 @@ async function synthesizeSpeech(text) {
     input: { text },
     voice: {
       languageCode: "en-UK",
-      name: "en-GB-Standard-B",
+      name: "en-GB-News-L",
       ssmlGender: "MALE",
     },
     audioConfig: { audioEncoding: "MP3" },
